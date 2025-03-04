@@ -2,7 +2,7 @@
 
 namespace Nano\Http\Param;
 
-use Nano\Http\Interfaces\ParamHandlerInterface;
+use Nano\Http\Interfaces\ParamHandler\ParamHandlerInterface;
 
 abstract class BaseParameter {
 
@@ -16,9 +16,15 @@ abstract class BaseParameter {
     public function __construct(
         protected array $globalParam
     ) {
-        foreach ($globalParam as $key => $value) {
-            $this->parameters[$key] = $value;
+        $this->parameters = $globalParam;
+    }
+
+    public function get(string $key): string|array|object|int|null
+    {
+        if (!isset($this->parameters[$key])) {
+            return null;
         }
+        return $this->parameters[$key];
     }
 
     abstract public function getHandler(): ParamHandlerInterface;

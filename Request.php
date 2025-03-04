@@ -2,76 +2,74 @@
 
 namespace Nano\Http;
 
+use Nano\Http\Interfaces\ParamHandler\CookieHandlerInterface;
+use Nano\Http\Interfaces\ParamHandler\FileHandlerInterface;
+use Nano\Http\Interfaces\ParamHandler\FormHandlerInterface;
+use Nano\Http\Interfaces\ParamHandler\QueryHandlerInterface;
+use Nano\Http\Interfaces\ParamHandler\ServerHandlerInterface;
+use Nano\Http\Interfaces\ParamHandler\SessionHandlerInterface;
 use Nano\Http\Param\QueryParam;
 use Nano\Http\Param\FormParam;
 use Nano\Http\Param\ServerParam;
 use Nano\Http\Param\CookieParam;
 use Nano\Http\Param\FileParam;
-use Nano\Http\Collections\ParamCollection;
-use Nano\Http\Interfaces\ParameterFactoryInterface;
-use Nano\Http\Interfaces\ParamHandlerInterface;
-use Nano\Http\Param\ParameterFactory;
+use Nano\Http\Param\SessionParam;
 
 class Request
 {
     public function __construct(
-        private ParamCollection $paramCollection
+        private QueryParam   $queryParam,
+        private FormParam    $formParam,
+        private ServerParam  $serverParam,
+        private CookieParam  $cookieParam,
+        private FileParam    $fileParam,
+        private SessionParam $sessionParam
     ) {
     }
 
-    /**
-     * Retrieves a parameter handler for the specified parameter class.
-     * 
-     * @param string $paramClass
-     * @return ParamHandlerInterface $handler
-     * 
-     * @throws \InvalidArgumentException If requested parameter handler is not found
-     */
-    private function getParameterFromClass(string $paramClass): ParamHandlerInterface
+    public function getQuery(): QueryHandlerInterface
     {
-        $handler = $this->paramCollection->getHandlerFor($paramClass);
-        return $handler;
+        return $this->queryParam->getHandler();
     }
 
-    public function getQuery(): ParamHandlerInterface
+    public function getForm(): FormHandlerInterface
     {
-        return $this->getParameterFromClass(QueryParam::class);
-    }
-    public function getForm(): ParamHandlerInterface
-    {
-        return $this->getParameterFromClass(FormParam::class);
-    }
-    public function getServer(): ParamHandlerInterface
-    {
-        return $this->getParameterFromClass(ServerParam::class);
-    }
-    public function getCookie(): ParamHandlerInterface
-    {
-        return $this->getParameterFromClass(CookieParam::class);
+        return $this->formParam->getHandler();
     }
 
-    public function getFile(): ParamHandlerInterface
+    public function getServer(): ServerHandlerInterface
     {
-        return $this->getParameterFromClass(FileParam::class);
+        return $this->serverParam->getHandler();
     }
 
-    /**
-     * Creates a Request instance from global variables.
-     * 
-     * @param ParameterFactoryInterface|null $factory Optional factory implementation
-     * @return self Immutable request instance
-     * 
-     * @note Uses ParameterFactory::getDefault() if no factory is provided.
-     *       Consider using dependency injection in production code.
-     */
-    public static function initializeGlobals(
-        ParameterFactoryInterface|null $parameterFactoryInterface
-        ): self
+    public function getCookie(): CookieHandlerInterface
     {
-        $parameterFactoryInterface ??= ParameterFactory::getDefaults();
+        return $this->cookieParam->getHandler();
+    }
+
+    public function getFile(?string $fileName = null): FileHandlerInterface
+    {
+        return $this->fileParam->getHandler($fileName);
+    }
+
+    public function getSession(?string $fileName = null): SessionHandlerInterface
+    {
+        return $this->sessionParam->getHandler($fileName);
+    }
+
+    public static function initialize(): self
+    {
         return new self(
-            paramCollection: $parameterFactoryInterface->createParamCollection()
+            queryParam:  new QueryParam($_GET ?? []),
+            formParam:   new FormParam($_POST ?? []),
+            serverParam: new ServerParam($_SERVER ?? []),
+            cookieParam: new CookieParam($_COOKIE ?? []),
+            fileParam:   new FileParam($_FILES ?? []),
+            sessionParam: new SessionParam($_SESSION ?? [])
         );
     }
 
+    public function __destruct()
+    {
+    }
 }

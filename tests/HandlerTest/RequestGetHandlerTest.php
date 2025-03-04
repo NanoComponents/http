@@ -2,7 +2,6 @@
 
 namespace Nano\Http\Tests\HandlerTest;
 
-use Nano\Http\Param\ParameterFactory;
 use Nano\Http\Request;
 use PHPUnit\Framework\TestCase;
 
@@ -16,17 +15,17 @@ class RequestGetHandlerTest extends TestCase
             'isVerified'    => true
         ];
         $_GET = $getDefault;
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
 
-        $this->assertEquals($getDefault['name'], $request->getQuery()->name);
-        $this->assertEquals($getDefault['age'], $request->getQuery()->age);
-        $this->assertEquals($getDefault['isVerified'], $request->getQuery()->isVerified);
+        $this->assertEquals($getDefault['name'], $request->getQuery()->get('name'));
+        $this->assertEquals($getDefault['age'], $request->getQuery()->get('age'));
+        $this->assertEquals($getDefault['isVerified'], $request->getQuery()->get('isVerified'));
     }
 
     public function testQueryHandlerProcessEmptyQueryParameters()
     {
         $_GET = [];
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
 
         $this->assertEmpty($request->getQuery()->getAll());
     }
@@ -39,11 +38,11 @@ class RequestGetHandlerTest extends TestCase
         ];
         
         // Initialize the Request class with the $_GET data
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
 
         // After the handler processes the query parameters:
-        $this->assertEquals('query with spaces', $request->getQuery()->search); // + should be decoded to space
-        $this->assertEquals('category=books&price<50', $request->getQuery()->filter); // %26 is decoded to & automatically
+        $this->assertEquals('query with spaces', $request->getQuery()->get('search')); // + should be decoded to space
+        $this->assertEquals('category=books&price<50', $request->getQuery()->get('filter')); // %26 is decoded to & automatically
     }
 
     public function testQueryHandlerProcessArrayParameters()
@@ -52,9 +51,9 @@ class RequestGetHandlerTest extends TestCase
             'tags' => ['php', 'zend', 'phpunit']
         ];
 
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
 
-        $this->assertEquals(['php', 'zend', 'phpunit'], $request->getQuery()->tags);
+        $this->assertEquals(['php', 'zend', 'phpunit'], $request->getQuery()->get('tags'));
     }
 
     public function testQueryHandlerProcessNumericKeys()
@@ -63,10 +62,10 @@ class RequestGetHandlerTest extends TestCase
             '0' => 'first',
             '1' => 'second'
         ];
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
     
-        $this->assertEquals('first', $request->getQuery()->{0});
-        $this->assertEquals('second', $request->getQuery()->{1});
+        $this->assertEquals('first', $request->getQuery()->get(0));
+        $this->assertEquals('second', $request->getQuery()->get(1));
     }
     public function testQueryHandlerProcessBooleanValues()
     {
@@ -74,10 +73,10 @@ class RequestGetHandlerTest extends TestCase
             'isActive' => 'true',
             'isAdmin'  => 'false'
         ];
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
 
-        $this->assertEquals('true', $request->getQuery()->isActive);
-        $this->assertEquals('false', $request->getQuery()->isAdmin);
+        $this->assertEquals('true', $request->getQuery()->get('isActive'));
+        $this->assertEquals('false', $request->getQuery()->get('isAdmin'));
     }
 
     public function testQueryHandlerHandlesMissingKeys()
@@ -85,9 +84,10 @@ class RequestGetHandlerTest extends TestCase
         $_GET = [
             'name' => 'iman'
         ];
-        $request = Request::initializeGlobals(new ParameterFactory);
-        //$this->assertEquals('iman', $request->getQuery()->name);
-        $this->assertNull($request->getQuery()->age); 
+        $request = Request::initialize();
+
+        $this->assertEquals('iman', $request->getQuery()->get('name'));
+        $this->assertNull($request->getQuery()->get('age')); 
     }
 
     public function testQueryHandlerHandlesLargeData()
@@ -95,9 +95,9 @@ class RequestGetHandlerTest extends TestCase
         $_GET = [
             'largeData' => str_repeat('a', 10000) // 10,000 characters
         ];
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
 
-        $this->assertEquals(str_repeat('a', 10000), $request->getQuery()->largeData);
+        $this->assertEquals(str_repeat('a', 10000), $request->getQuery()->get('largeData'));
     }
     public function testQueryHandlerProcessNestedArrays()
     {
@@ -107,10 +107,10 @@ class RequestGetHandlerTest extends TestCase
                 'age'  => '22'
             ]
         ];
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
 
-        $this->assertEquals('iman', $request->getQuery()->user['name']);
-        $this->assertEquals('22', $request->getQuery()->user['age']);
+        $this->assertEquals('iman', $request->getQuery()->get('user')['name']);
+        $this->assertEquals('22', $request->getQuery()->get('user')['age']);
     }
 
     public function testQueryHandlerDecodesUrlEncodedValues()
@@ -118,9 +118,9 @@ class RequestGetHandlerTest extends TestCase
         $_GET = [
             'search' => 'query%20with%20spaces'
         ];
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
     
-        $this->assertEquals('query with spaces', $request->getQuery()->search);
+        $this->assertEquals('query with spaces', $request->getQuery()->get('search'));
     }
 
     public function testQueryHandlerHandlesInvalidDataTypes()
@@ -128,17 +128,17 @@ class RequestGetHandlerTest extends TestCase
         $_GET = [
             'invalid' => new \stdClass() // Invalid data type
         ];
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
     
-        $this->assertNull($request->getQuery()->invalid); // Assuming invalid types return null
+        $this->assertNull($request->getQuery()->get('invalid')); // Assuming invalid types return null
     }
     public function testQueryHandlerProcessUtf8Characters()
     {
         $_GET = [
             'message' => 'こんにちは' // Japanese characters
         ];
-        $request = Request::initializeGlobals(new ParameterFactory);
+        $request = Request::initialize();
     
-        $this->assertEquals('こんにちは', $request->getQuery()->message);
+        $this->assertEquals('こんにちは', $request->getQuery()->get('message'));
     }
 }

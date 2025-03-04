@@ -6,7 +6,6 @@ use Nano\Http\Handlers\CookieParamHandler;
 use Nano\Http\Handlers\FormParamHandler;
 use Nano\Http\Handlers\QueryParamHandler;
 use Nano\Http\Handlers\ServerParamHandler;
-use Nano\Http\Param\ParameterFactory;
 use Nano\Http\Request;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +13,7 @@ class RequestGetParamTypeTest extends TestCase
 {
     public function testGetQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initializeGlobals(new ParameterFactory);
+        $request          = Request::initialize();
 
         $paramHandlerType = QueryParamHandler::class;
         $handlerType      = $request->getQuery();
@@ -23,7 +22,7 @@ class RequestGetParamTypeTest extends TestCase
 
     public function testFormQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initializeGlobals(new ParameterFactory);
+        $request          = Request::initialize();
 
         $paramHandlerType = FormParamHandler::class;
         $handlerType      = $request->getForm();
@@ -32,7 +31,7 @@ class RequestGetParamTypeTest extends TestCase
 
     public function testServerQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initializeGlobals(new ParameterFactory);
+        $request          = Request::initialize();
 
         $paramHandlerType = ServerParamHandler::class;
         $handlerType      = $request->getServer();
@@ -41,7 +40,7 @@ class RequestGetParamTypeTest extends TestCase
 
     public function testCookieQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initializeGlobals(new ParameterFactory);
+        $request          = Request::initialize();
 
         $paramHandlerType = CookieParamHandler::class;
         $handlerType      = $request->getCookie();
@@ -50,7 +49,7 @@ class RequestGetParamTypeTest extends TestCase
 
     public function testFileQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initializeGlobals(new ParameterFactory);
+        $request          = Request::initialize();
 
         $paramHandlerType = FormParamHandler::class;
         $handlerType      = $request->getForm();

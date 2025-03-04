@@ -2,7 +2,15 @@
 
 namespace Nano\Http\Handlers;
 
-use AllowDynamicProperties;
+use Nano\Http\Interfaces\ParamHandler\QueryHandlerInterface;
+use Nano\Http\Traits\ParamSanitizationTrait;
 
-class QueryParamHandler extends BaseHandler{
+class QueryParamHandler extends BaseHandler implements QueryHandlerInterface
+{
+    use ParamSanitizationTrait;
+    public function getAll(): array
+    {
+        return $this->paramInterface->getAll();
+    }
+
 }

@@ -2,8 +2,8 @@
 
 namespace Nano\Http\Param;
 
-use AllowDynamicProperties;
 use Nano\Http\Handlers\QueryParamHandler;
+use Nano\Http\Interfaces\ParamHandler\QueryHandlerInterface;
 use Nano\Http\Interfaces\ParamInterface;
 use Nano\Http\Traits\ParamGetterTrait;
 
@@ -11,7 +11,7 @@ class QueryParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;
 
-    public function get(string $key): string|array|object|null
+    public function get(string $key): string|array|object|int|null
     {
         if (!isset($this->parameters[$key])) {
             return null;
@@ -24,8 +24,8 @@ class QueryParam extends BaseParameter implements ParamInterface
         return $this->parameters;
     }
 
-    public function getHandler(): QueryParamHandler
+    public function getHandler(): QueryHandlerInterface
     {
-        return $this->handler ??= new QueryParamHandler($this);
+    return $this->handler ??= new QueryParamHandler($this);
     }
 }

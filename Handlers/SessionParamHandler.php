@@ -2,11 +2,10 @@
 
 namespace Nano\Http\Handlers;
 
-use Nano\Http\Interfaces\ParamHandler\FormHandlerInterface;
-use Nano\Http\Param\FormParam;
+use Nano\Http\Interfaces\ParamHandler\SessionHandlerInterface;
 use Nano\Http\Traits\ParamSanitizationTrait;
 
-class FormParamHandler extends BaseHandler implements FormHandlerInterface
+class SessionParamHandler extends BaseHandler implements SessionHandlerInterface
 {
     use ParamSanitizationTrait;
     public function getAll(): array
