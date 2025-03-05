@@ -1,12 +1,28 @@
 site_name: Nano HTTP Request Component
+site_url: https://NanoComponents.github.io/http/
 docs_dir: docs
+
 theme:
   name: readthedocs
+  logo: images/logo.png  # Optional: if you want to add a logo
+  favicon: images/favicon.ico  # Optional: add a favicon
+  custom_dir: custom_theme  # Optional: for any custom styles or templates
+
 nav:
   - Home: index.md
   - Installation: installation.md
-  - Usage: usage.md
+  - Usage Guide: usage.md
   - API Reference: api-reference.md
-  - Architecture: architecture.md
-  - Contributing: contributing.md
+  - Architecture Overview: architecture.md
   - Changelog: changelog.md
+  - Contributing: contributing.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - tables
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+
