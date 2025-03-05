@@ -12,7 +12,7 @@ A robust, modular PHP library for handling HTTP requests, providing seamless acc
 ## Quickstart
 
 ```php
-use Nano\Http\Request;
+use NanoLibs\Http\Request;
 
 $request = Request::initialize();
 $file = $request->getFile('user.documents')->getAll()[0]; // Access nested file

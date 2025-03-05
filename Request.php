@@ -1,21 +1,20 @@
 <?php
 
-namespace Nano\Http;
+namespace NanoLibs\Http;
 
-use Nano\Http\Interfaces\ParamHandler\CookieHandlerInterface;
-use Nano\Http\Interfaces\ParamHandler\FileHandlerInterface;
-use Nano\Http\Interfaces\ParamHandler\FormHandlerInterface;
-use Nano\Http\Interfaces\ParamHandler\QueryHandlerInterface;
-use Nano\Http\Interfaces\ParamHandler\ServerHandlerInterface;
-use Nano\Http\Interfaces\ParamHandler\SessionHandlerInterface;
-use Nano\Http\Interfaces\ParamHandler\StreamInputHandlerInterface;
-use Nano\Http\Param\QueryParam;
-use Nano\Http\Param\FormParam;
-use Nano\Http\Param\ServerParam;
-use Nano\Http\Param\CookieParam;
-use Nano\Http\Param\FileParam;
-use Nano\Http\Param\SessionParam;
-use Nano\Http\Services\StreamInput\StreamInputService;
+use NanoLibs\Http\Interfaces\ParamHandler\CookieHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamHandler\FileHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamHandler\FormHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamHandler\QueryHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamHandler\ServerHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamHandler\SessionHandlerInterface;
+use NanoLibs\Http\Param\QueryParam;
+use NanoLibs\Http\Param\FormParam;
+use NanoLibs\Http\Param\ServerParam;
+use NanoLibs\Http\Param\CookieParam;
+use NanoLibs\Http\Param\FileParam;
+use NanoLibs\Http\Param\SessionParam;
+use NanoLibs\Http\Services\StreamInput\StreamInputService;
 
 readonly class Request
 {

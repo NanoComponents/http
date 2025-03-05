@@ -1,9 +1,9 @@
 <?php
 
-namespace Nano\Http\Services\Files;
+namespace NanoLibs\Http\Services\Files;
 
-use Nano\Http\Interfaces\Service\UploadedFileInterface;
-use Nano\Http\Rules\FileUploadingRules;
+use NanoLibs\Http\Interfaces\Service\UploadedFileInterface;
+use NanoLibs\Http\Rules\FileUploadingRules;
 
 class UploadedFile implements UploadedFileInterface
 {

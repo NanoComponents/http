@@ -1,9 +1,9 @@
 <?php
 
-namespace Nano\Http\Handlers;
+namespace NanoLibs\Http\Handlers;
 
-use Nano\Http\Interfaces\ParamHandler\QueryHandlerInterface;
-use Nano\Http\Traits\ParamSanitizationTrait;
+use NanoLibs\Http\Interfaces\ParamHandler\QueryHandlerInterface;
+use NanoLibs\Http\Traits\ParamSanitizationTrait;
 
 class QueryParamHandler extends BaseHandler implements QueryHandlerInterface
 {

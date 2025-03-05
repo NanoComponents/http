@@ -1,12 +1,12 @@
 <?php
 
-namespace Nano\Http\Rules;
+namespace NanoLibs\Http\Rules;
 
 use function in_array;
 use function key_exists;
 
-use Nano\Http\Exceptions\UnknownErrorStatus;
-use Nano\Http\Services\Files\UploadedFile;
+use NanoLibs\Http\Exceptions\UnknownErrorStatus;
+use NanoLibs\Http\Services\Files\UploadedFile;
 
 final class FileUploadingRules
 {

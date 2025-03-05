@@ -1,12 +1,12 @@
 <?php
 
-namespace Nano\Http\Tests;
+namespace NanoLibs\Http\Tests;
 
-use Nano\Http\Handlers\CookieParamHandler;
-use Nano\Http\Handlers\FormParamHandler;
-use Nano\Http\Handlers\QueryParamHandler;
-use Nano\Http\Handlers\ServerParamHandler;
-use Nano\Http\Request;
+use NanoLibs\Http\Handlers\CookieParamHandler;
+use NanoLibs\Http\Handlers\FormParamHandler;
+use NanoLibs\Http\Handlers\QueryParamHandler;
+use NanoLibs\Http\Handlers\ServerParamHandler;
+use NanoLibs\Http\Request;
 use PHPUnit\Framework\TestCase;
 
 class RequestGetParamTypeTest extends TestCase

@@ -20,7 +20,7 @@
 
 ## Verification
 ```php
-use Nano\Http\Request;
+use NanoLibs\Http\Request;
 $request = Request::initialize();
 $serverData = $request->getServer()->getAll();
 var_dump($serverData);

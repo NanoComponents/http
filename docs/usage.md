@@ -3,7 +3,7 @@
 ## Initialization
 Create a `Request` instance with superglobals:
 ```php
-use Nano\Http\Request;
+use NanoLibs\Http\Request;
 $request = Request::initialize();
 ```
 

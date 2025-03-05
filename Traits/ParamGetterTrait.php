@@ -1,6 +1,6 @@
 <?php
 
-namespace Nano\Http\Traits;
+namespace NanoLibs\Http\Traits;
 
 trait ParamGetterTrait {
 

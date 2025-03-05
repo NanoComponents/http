@@ -1,8 +1,8 @@
 <?php
 
-namespace Nano\Http\Param;
+namespace NanoLibs\Http\Param;
 
-use Nano\Http\Interfaces\ParamHandler\ParamHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamHandler\ParamHandlerInterface;
 
 abstract class BaseParameter {
 

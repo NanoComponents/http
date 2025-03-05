@@ -1,8 +1,8 @@
 <?php
 
-namespace Nano\Http\Tests\HandlerTest;
+namespace NanoLibs\Http\Tests\HandlerTest;
 
-use Nano\Http\Request;
+use NanoLibs\Http\Request;
 use PHPUnit\Framework\TestCase;
 
 class RequestFileHandlerTest extends TestCase

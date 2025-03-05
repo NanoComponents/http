@@ -1,7 +1,7 @@
 # Architecture
 
 ## Overview
-`Nano\Http` provides a structured, object-oriented approach to HTTP request handling, abstracting superglobals into manageable components.
+`NanoLibs\Http` provides a structured, object-oriented approach to HTTP request handling, abstracting superglobals into manageable components.
 
 ## Design Principles
 - **Dependency Injection**: `Request` uses constructor injection for parameter objects, enhancing testability.

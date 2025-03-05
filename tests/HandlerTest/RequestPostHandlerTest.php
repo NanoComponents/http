@@ -1,9 +1,9 @@
 <?php
 
-namespace Nano\Http\Tests\HandlerTest;
+namespace NanoLibs\Http\Tests\HandlerTest;
 
-use Nano\Http\Param\ParameterFactory;
-use Nano\Http\Request;
+use NanoLibs\Http\Param\ParameterFactory;
+use NanoLibs\Http\Request;
 use PHPUnit\Framework\TestCase;
 
 class RequestPostHandlerTest extends TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nano\Http\Serializers;
+namespace NanoLibs\Http\Serializers;
 
 use function array_keys;
 use function array_pop;

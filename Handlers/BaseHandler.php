@@ -1,9 +1,9 @@
 <?php
 
-namespace Nano\Http\Handlers;
+namespace NanoLibs\Http\Handlers;
 
-use Nano\Http\Interfaces\ParamHandler\ParamHandlerInterface;
-use Nano\Http\Interfaces\ParamInterface;
+use NanoLibs\Http\Interfaces\ParamHandler\ParamHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamInterface;
 
 abstract class BaseHandler implements ParamHandlerInterface
 {

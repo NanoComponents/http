@@ -1,11 +1,11 @@
 <?php
 
-namespace Nano\Http\Param;
+namespace NanoLibs\Http\Param;
 
-use Nano\Http\Handlers\SessionParamHandler;
-use Nano\Http\Interfaces\ParamHandler\SessionHandlerInterface;
-use Nano\Http\Interfaces\ParamInterface;
-use Nano\Http\Traits\ParamGetterTrait;
+use NanoLibs\Http\Handlers\SessionParamHandler;
+use NanoLibs\Http\Interfaces\ParamHandler\SessionHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamInterface;
+use NanoLibs\Http\Traits\ParamGetterTrait;
 
 class SessionParam extends BaseParameter implements ParamInterface
 {

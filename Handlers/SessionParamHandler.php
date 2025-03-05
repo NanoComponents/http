@@ -1,9 +1,9 @@
 <?php
 
-namespace Nano\Http\Handlers;
+namespace NanoLibs\Http\Handlers;
 
-use Nano\Http\Interfaces\ParamHandler\SessionHandlerInterface;
-use Nano\Http\Traits\ParamSanitizationTrait;
+use NanoLibs\Http\Interfaces\ParamHandler\SessionHandlerInterface;
+use NanoLibs\Http\Traits\ParamSanitizationTrait;
 
 class SessionParamHandler extends BaseHandler implements SessionHandlerInterface
 {

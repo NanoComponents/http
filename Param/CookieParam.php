@@ -1,11 +1,11 @@
 <?php
 
-namespace Nano\Http\Param;
+namespace NanoLibs\Http\Param;
 
-use Nano\Http\Handlers\CookieParamHandler;
-use Nano\Http\Interfaces\ParamHandler\CookieHandlerInterface;
-use Nano\Http\Interfaces\ParamInterface;
-use Nano\Http\Traits\ParamGetterTrait;
+use NanoLibs\Http\Handlers\CookieParamHandler;
+use NanoLibs\Http\Interfaces\ParamHandler\CookieHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamInterface;
+use NanoLibs\Http\Traits\ParamGetterTrait;
 
 class CookieParam extends BaseParameter implements ParamInterface
 {

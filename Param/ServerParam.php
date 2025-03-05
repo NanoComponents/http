@@ -1,11 +1,11 @@
 <?php
 
-namespace Nano\Http\Param;
+namespace NanoLibs\Http\Param;
 
-use Nano\Http\Handlers\ServerParamHandler;
-use Nano\Http\Interfaces\ParamHandler\ServerHandlerInterface;
-use Nano\Http\Interfaces\ParamInterface;
-use Nano\Http\Traits\ParamGetterTrait;
+use NanoLibs\Http\Handlers\ServerParamHandler;
+use NanoLibs\Http\Interfaces\ParamHandler\ServerHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamInterface;
+use NanoLibs\Http\Traits\ParamGetterTrait;
 
 class ServerParam extends BaseParameter implements ParamInterface
 {

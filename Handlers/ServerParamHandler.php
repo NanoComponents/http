@@ -1,9 +1,9 @@
 <?php
 
-namespace Nano\Http\Handlers;
+namespace NanoLibs\Http\Handlers;
 
-use Nano\Http\Interfaces\ParamHandler\ServerHandlerInterface;
-use Nano\Http\Traits\ParamSanitizationTrait;
+use NanoLibs\Http\Interfaces\ParamHandler\ServerHandlerInterface;
+use NanoLibs\Http\Traits\ParamSanitizationTrait;
 
 class ServerParamHandler extends BaseHandler implements ServerHandlerInterface
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Nano\Http\Tests\HandlerTest;
+namespace NanoLibs\Http\Tests\HandlerTest;
 
-use Nano\Http\Handlers\ServerParamHandler;
-use Nano\Http\Interfaces\ParamHandler\ServerHandlerInterface;
-use Nano\Http\Interfaces\ParamInterface;
-use Nano\Http\Request;
+use NanoLibs\Http\Handlers\ServerParamHandler;
+use NanoLibs\Http\Interfaces\ParamHandler\ServerHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamInterface;
+use NanoLibs\Http\Request;
 use PHPUnit\Framework\TestCase;
 
 class RequestServerHandlerTest extends TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nano\Http\Interfaces\ParamHandler;
+namespace NanoLibs\Http\Interfaces\ParamHandler;
 
 interface QueryHandlerInterface extends ParamHandlerInterface
 {

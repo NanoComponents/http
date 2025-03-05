@@ -1,11 +1,11 @@
 <?php
 
-namespace Nano\Http\Param;
+namespace NanoLibs\Http\Param;
 
-use Nano\Http\Handlers\FileParamHandler;
-use Nano\Http\Interfaces\ParamHandler\FileHandlerInterface;
-use Nano\Http\Interfaces\ParamInterface;
-use Nano\Http\Traits\ParamGetterTrait;
+use NanoLibs\Http\Handlers\FileParamHandler;
+use NanoLibs\Http\Interfaces\ParamHandler\FileHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamInterface;
+use NanoLibs\Http\Traits\ParamGetterTrait;
 
 class FileParam extends BaseParameter implements ParamInterface
 {

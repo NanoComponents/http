@@ -1,10 +1,10 @@
 <?php
 
-namespace Nano\Http\Services\Files;
+namespace NanoLibs\Http\Services\Files;
 
-use Nano\Http\Exceptions\InvalidFileArrayException;
-use Nano\Http\Interfaces\Service\UploadedFormInterface;
-use Nano\Http\Serializers\GlobalFileArraySerializer;
+use NanoLibs\Http\Exceptions\InvalidFileArrayException;
+use NanoLibs\Http\Interfaces\Service\UploadedFormInterface;
+use NanoLibs\Http\Serializers\GlobalFileArraySerializer;
 
 class UploadRegistry
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nano\Http;
+namespace NanoLibs\Http;
 
 class RequestFactory
 {

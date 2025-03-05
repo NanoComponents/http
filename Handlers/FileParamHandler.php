@@ -1,12 +1,12 @@
 <?php
 
-namespace Nano\Http\Handlers;
+namespace NanoLibs\Http\Handlers;
 
-use Nano\Http\Interfaces\ParamHandler\FileHandlerInterface;
-use Nano\Http\Interfaces\ParamInterface;
-use Nano\Http\Interfaces\Service\UploadedFileInterface;
-use Nano\Http\Services\Files\UploadedFile;
-use Nano\Http\Services\Files\UploadRegistry;
+use NanoLibs\Http\Interfaces\ParamHandler\FileHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamInterface;
+use NanoLibs\Http\Interfaces\Service\UploadedFileInterface;
+use NanoLibs\Http\Services\Files\UploadedFile;
+use NanoLibs\Http\Services\Files\UploadRegistry;
 
 class FileParamHandler extends BaseHandler implements FileHandlerInterface
 {

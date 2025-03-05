@@ -1,8 +1,8 @@
 <?php
 
-namespace Nano\Http\tests\ServiceTest;
+namespace NanoLibs\Http\tests\ServiceTest;
 
-use Nano\Http\Services\StreamInput\StreamInputService;
+use NanoLibs\Http\Services\StreamInput\StreamInputService;
 use PHPUnit\Framework\TestCase;
 
 class StreamInputServiceTest extends TestCase

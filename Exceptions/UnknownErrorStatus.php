@@ -1,5 +1,5 @@
 <?php
 
-namespace Nano\Http\Exceptions;
+namespace NanoLibs\Http\Exceptions;
 
 class UnknownErrorStatus extends \Exception {}

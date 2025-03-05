@@ -1,11 +1,11 @@
 <?php
 
-namespace Nano\Http\Param;
+namespace NanoLibs\Http\Param;
 
-use Nano\Http\Handlers\FormParamHandler;
-use Nano\Http\Interfaces\ParamHandler\FormHandlerInterface;
-use Nano\Http\Interfaces\ParamInterface;
-use Nano\Http\Traits\ParamGetterTrait;
+use NanoLibs\Http\Handlers\FormParamHandler;
+use NanoLibs\Http\Interfaces\ParamHandler\FormHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamInterface;
+use NanoLibs\Http\Traits\ParamGetterTrait;
 
 class FormParam extends BaseParameter implements ParamInterface
 {

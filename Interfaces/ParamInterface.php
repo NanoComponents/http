@@ -1,8 +1,6 @@
 <?php
 
-namespace Nano\Http\Interfaces;
-
-use Nano\Http\Interfaces\ParamHandler\ParamHandlerInterface;
+namespace NanoLibs\Http\Interfaces;
 
 interface ParamInterface
 {

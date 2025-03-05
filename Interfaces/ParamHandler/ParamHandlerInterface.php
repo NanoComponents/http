@@ -1,6 +1,6 @@
 <?php
 
-namespace Nano\Http\Interfaces\ParamHandler;
+namespace NanoLibs\Http\Interfaces\ParamHandler;
 
 interface ParamHandlerInterface{
     public function getAll(): array;

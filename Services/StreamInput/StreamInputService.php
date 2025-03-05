@@ -1,9 +1,9 @@
 <?php
 
-namespace Nano\Http\Services\StreamInput;
+namespace NanoLibs\Http\Services\StreamInput;
 
 use JsonException;
-use Nano\Http\Interfaces\Service\StreamInputInterface;
+use NanoLibs\Http\Interfaces\Service\StreamInputInterface;
 
 class StreamInputService implements StreamInputInterface
 {

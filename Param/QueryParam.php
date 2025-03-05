@@ -1,11 +1,11 @@
 <?php
 
-namespace Nano\Http\Param;
+namespace NanoLibs\Http\Param;
 
-use Nano\Http\Handlers\QueryParamHandler;
-use Nano\Http\Interfaces\ParamHandler\QueryHandlerInterface;
-use Nano\Http\Interfaces\ParamInterface;
-use Nano\Http\Traits\ParamGetterTrait;
+use NanoLibs\Http\Handlers\QueryParamHandler;
+use NanoLibs\Http\Interfaces\ParamHandler\QueryHandlerInterface;
+use NanoLibs\Http\Interfaces\ParamInterface;
+use NanoLibs\Http\Traits\ParamGetterTrait;
 
 class QueryParam extends BaseParameter implements ParamInterface
 {

@@ -1,11 +1,11 @@
 {
-    "name": "nano/http",
+    "name": "nanolibs/http",
     "description": "request component",
     "type": "library",
     "version": "1.0.0",
     "autoload": {
         "psr-4": {
-            "Nano\\Http\\": ""
+            "NanoLibs\\Http\\": ""
         }
     },
     "authors": [
