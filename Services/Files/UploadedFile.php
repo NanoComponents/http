@@ -2,7 +2,7 @@
 
 namespace Nano\Http\Services\Files;
 
-use Nano\Http\Interfaces\UploadedFileInterface;
+use Nano\Http\Interfaces\Service\UploadedFileInterface;
 use Nano\Http\Rules\FileUploadingRules;
 
 class UploadedFile implements UploadedFileInterface

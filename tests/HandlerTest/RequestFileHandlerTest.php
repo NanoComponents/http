@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class RequestFileHandlerTest extends TestCase
 {
-    public function testValidFileUpload()
+    public function testValidFileUpload(): void
     {
         $_FILES = [
             'file' => [
@@ -27,7 +27,7 @@ class RequestFileHandlerTest extends TestCase
         $this->assertEquals('image/jpeg', $request->getFile()->getType()[0]);
     }
 
-    public function testFileTooLarge()
+    public function testFileTooLarge(): void
     {
         $_FILES = [
             'file' => [
@@ -45,7 +45,7 @@ class RequestFileHandlerTest extends TestCase
         $this->assertEquals('The uploaded file was above max allowed size', $request->getFile()->getErrorMessages('file')[0]);
     }
 
-    public function testInvalidFileType()
+    public function testInvalidFileType(): void
     {
         $_FILES = [
             'file' => [
@@ -64,7 +64,7 @@ class RequestFileHandlerTest extends TestCase
         $this->assertEquals('The uploaded file type is invalid', $request->getFile()->getErrorMessages()[0]);
     }
 
-    public function testMissingFile()
+    public function testMissingFile(): void
     {
         $_FILES = [];
 
@@ -74,7 +74,7 @@ class RequestFileHandlerTest extends TestCase
         $this->assertNull($request->getFile()->get('file'));
     }
 
-    public function testMalformedFileUpload()
+    public function testMalformedFileUpload(): void
     {
         $_FILES = [
             'file' => [

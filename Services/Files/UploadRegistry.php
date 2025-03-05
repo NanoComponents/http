@@ -3,8 +3,7 @@
 namespace Nano\Http\Services\Files;
 
 use Nano\Http\Exceptions\InvalidFileArrayException;
-use Nano\Http\Interfaces\UploadedFileInterface;
-use Nano\Http\Interfaces\UploadedFormInterface;
+use Nano\Http\Interfaces\Service\UploadedFormInterface;
 use Nano\Http\Serializers\GlobalFileArraySerializer;
 
 class UploadRegistry
@@ -47,19 +46,6 @@ class UploadRegistry
                 }
                 $result[] = $file;
             }
-
-            // if ($fieldName && isset($files[$fieldName])) {
-            //     $result[] = $files[$fieldName];
-            // } else if (!$fieldName) {
-            //     foreach ($files as $file) {
-            //         foreach ($file as $singleFile) {
-            //             if (!$singleFile instanceof UploadedFileInterface) {
-            //                 throw new \Exception('wrong');
-            //             }
-            //             $result[] = $singleFile;
-            //         }
-            //     }
-            // }
         }
         return $result;
     }
@@ -133,6 +119,9 @@ class UploadRegistry
         }
     }
 
+    /**
+     * @throws InvalidFileArrayException
+     */
     protected function extractFileData(array $fileData): array
     {
         if (6 !== count($fileData)) {

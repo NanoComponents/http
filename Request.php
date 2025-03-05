@@ -8,30 +8,41 @@ use Nano\Http\Interfaces\ParamHandler\FormHandlerInterface;
 use Nano\Http\Interfaces\ParamHandler\QueryHandlerInterface;
 use Nano\Http\Interfaces\ParamHandler\ServerHandlerInterface;
 use Nano\Http\Interfaces\ParamHandler\SessionHandlerInterface;
+use Nano\Http\Interfaces\ParamHandler\StreamInputHandlerInterface;
 use Nano\Http\Param\QueryParam;
 use Nano\Http\Param\FormParam;
 use Nano\Http\Param\ServerParam;
 use Nano\Http\Param\CookieParam;
 use Nano\Http\Param\FileParam;
 use Nano\Http\Param\SessionParam;
+use Nano\Http\Services\StreamInput\StreamInputService;
 
-class Request
+readonly class Request
 {
     public function __construct(
-        private QueryParam   $queryParam,
-        private FormParam    $formParam,
-        private ServerParam  $serverParam,
-        private CookieParam  $cookieParam,
-        private FileParam    $fileParam,
-        private SessionParam $sessionParam
+        private QueryParam          $queryParam,
+        private FormParam           $formParam,
+        private ServerParam         $serverParam,
+        private CookieParam         $cookieParam,
+        private FileParam           $fileParam,
+        private SessionParam        $sessionParam,
+        private StreamInputService  $streamInputService,
     ) {
     }
 
+    /**
+     * Return the $_GET handler
+     * @return QueryHandlerInterface
+     */
     public function getQuery(): QueryHandlerInterface
     {
         return $this->queryParam->getHandler();
     }
 
+    /**
+     * Return the $_POST handler
+     * @return FormHandlerInterface
+     */
     public function getForm(): FormHandlerInterface
     {
         return $this->formParam->getHandler();
@@ -57,19 +68,21 @@ class Request
         return $this->sessionParam->getHandler($fileName);
     }
 
+    public function getStreamInput(): StreamInputService
+    {
+        return $this->streamInputService;
+    }
+
     public static function initialize(): self
     {
         return new self(
-            queryParam:  new QueryParam($_GET ?? []),
-            formParam:   new FormParam($_POST ?? []),
-            serverParam: new ServerParam($_SERVER ?? []),
-            cookieParam: new CookieParam($_COOKIE ?? []),
-            fileParam:   new FileParam($_FILES ?? []),
-            sessionParam: new SessionParam($_SESSION ?? [])
+            queryParam:  new QueryParam($_GET        ?? []),
+            formParam:   new FormParam($_POST        ?? []),
+            serverParam: new ServerParam($_SERVER    ?? []),
+            cookieParam: new CookieParam($_COOKIE    ?? []),
+            fileParam:   new FileParam($_FILES       ?? []),
+            sessionParam:new SessionParam($_SESSION  ?? []),
+            streamInputService: new StreamInputService('php://input'),
         );
-    }
-
-    public function __destruct()
-    {
     }
 }

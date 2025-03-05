@@ -11,10 +11,10 @@ use Nano\Http\Services\Files\UploadedFile;
 final class FileUploadingRules
 {
     /**
-     * Size's are in kb
+     * Sizes are in kb
      */
-    public const MAX_FILE_SIZE = 5 * 1024 * 1024;
-    public const MIN_FILE_SIZE = 1 * 1024;
+    public const int|float MAX_FILE_SIZE = 5 * 1024 * 1024;
+    public const int|float MIN_FILE_SIZE = 1 * 1024;
     protected static ?array $error_messages = null;
     protected static ?UploadedFile $uploadedFile = null;
 
@@ -27,6 +27,9 @@ final class FileUploadingRules
         'application/zip',
     ];
 
+    /**
+     * @throws UnknownErrorStatus
+     */
     public static function checkAllFileError(?UploadedFile $uploadedFile = null): array
     {
         self::$uploadedFile ??= $uploadedFile;
@@ -64,15 +67,18 @@ final class FileUploadingRules
 
     protected static function checkFileTypeError(string $fileType):     string|false
     {
-        if (!in_array($fileType, self::$verifiedFileTypes)) {
+        if (!in_array($fileType, self::$verifiedFileTypes, true)) {
             return self::getErrorMessage()['invalid_file_type'];
         }
         return false;
     }
 
+    /**
+     * @throws UnknownErrorStatus
+     */
     protected static function checkUploadErrorInGlobalFileArray($errorNumber)
     {
-        if (!key_exists($errorNumber, self::getErrorMessage())) {
+        if (!array_key_exists($errorNumber, self::getErrorMessage())) {
             throw new UnknownErrorStatus('Unknown error status detected : ' . $errorNumber);
         }
         return self::getErrorMessage()[$errorNumber];

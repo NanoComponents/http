@@ -2,8 +2,8 @@
 
 namespace Nano\Http\Services\Files;
 
-use Nano\Http\Interfaces\UploadedFileInterface;
-use Nano\Http\Interfaces\UploadedFormInterface;
+use Nano\Http\Interfaces\Service\UploadedFileInterface;
+use Nano\Http\Interfaces\Service\UploadedFormInterface;
 
 class UploadedForm implements UploadedFormInterface
 {

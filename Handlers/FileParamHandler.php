@@ -2,11 +2,10 @@
 
 namespace Nano\Http\Handlers;
 
-use function array_map;
-
 use Nano\Http\Interfaces\ParamHandler\FileHandlerInterface;
 use Nano\Http\Interfaces\ParamInterface;
-use Nano\Http\Interfaces\UploadedFileInterface;
+use Nano\Http\Interfaces\Service\UploadedFileInterface;
+use Nano\Http\Services\Files\UploadedFile;
 use Nano\Http\Services\Files\UploadRegistry;
 
 class FileParamHandler extends BaseHandler implements FileHandlerInterface
@@ -21,7 +20,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
     }
 
     /**
-     * @return array<\Nano\Http\Services\Files\UploadedFile>
+     * @return array<UploadedFile>
      */
     public function getAll(): array
     {
@@ -30,7 +29,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
 
     public function isFileExists(string $fileName): bool
     {
-        return in_array($fileName, $this->getName());
+        return in_array($fileName, $this->getName(), true);
     }
 
     public function isFieldNameExists(string $fieldName): bool
@@ -117,7 +116,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
     /**
      * Get UploadedFileInterface of specified form and specified file name
      * @param string $fileName
-     * @return array<\Nano\Http\Services\Files\UploadedFile>|null
+     * @return array<UploadedFile>|null
      */
     public function get(string $fileName): ?UploadedFileInterface
     {
@@ -130,13 +129,13 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
     }
 
 
-    protected function registerUploadRegistry()
+    protected function registerUploadRegistry(): void
     {
         $this->uploadedRegistry = new UploadRegistry($this->paramInterface->getAll());
     }
 
     /**
-     * @return array<\Nano\Http\Services\Files\UploadedFile>
+     * @return array<UploadedFile>
      */
     protected function getFilesArrayOfSpecifiedFormNameOrAll(): array
     {

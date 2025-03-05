@@ -15,13 +15,10 @@ abstract class BaseHandler implements ParamHandlerInterface
     public function getValue(string $name): mixed
     {
         $value = $this->paramInterface->get($name);
-        if (!isset($value)) {
-            return null;
-        }
-        return $value;
+        return $value ?? null;
     }
 
-    protected function getGlobalParamArray()
+    protected function getGlobalParamArray(): array
     {
         return $this->paramInterface->getAll();
     }

@@ -2,7 +2,7 @@
 
 namespace Nano\Http\Interfaces\ParamHandler;
 
-use Nano\Http\Interfaces\UploadedFileInterface;
+use Nano\Http\Interfaces\Service\UploadedFileInterface;
 
 interface FileHandlerInterface extends ParamHandlerInterface
 {

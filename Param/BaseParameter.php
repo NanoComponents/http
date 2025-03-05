@@ -14,7 +14,7 @@ abstract class BaseParameter {
     protected ParamHandlerInterface $handler;
 
     public function __construct(
-        protected array $globalParam
+        protected array|string $globalParam
     ) {
         $this->parameters = $globalParam;
     }

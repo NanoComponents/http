@@ -1,6 +1,6 @@
 <?php
 
-namespace Nano\Http\Interfaces;
+namespace Nano\Http\Interfaces\Service;
 
 interface UploadedFileInterface
 {

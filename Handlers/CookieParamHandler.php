@@ -16,8 +16,6 @@ class CookieParamHandler extends BaseHandler implements CookieHandlerInterface
 
     public function isCookieExists(string $fileName): bool
     {
-        return $this->paramInterface->get($fileName) !== null
-        ? true
-        : false;
+        return $this->paramInterface->get($fileName) !== null;
     }
 }
