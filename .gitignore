@@ -5,6 +5,7 @@ vendor
 .idea
 .ddev
 .phpunit.result*
+site/
 
 *.swp
 */.swp
