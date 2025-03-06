@@ -3,6 +3,7 @@
     "description": "request component",
     "type": "library",
     "version": "1.0.0",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "NanoLibs\\Http\\": "src"
@@ -18,6 +19,5 @@
         "phpunit/phpunit": "^11.5"
     },
     "require": {
-        "nyholm/psr7": "^1.8"
     }
 }
