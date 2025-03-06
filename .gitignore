@@ -5,6 +5,7 @@ vendor
 .idea
 .vscode
 .ddev
+composer.lock
 .phpunit.result*
 site/
 
