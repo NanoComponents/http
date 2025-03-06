@@ -71,17 +71,4 @@ readonly class Request
     {
         return $this->streamInputService;
     }
-
-    public static function initialize(): self
-    {
-        return new self(
-            queryParam:  new QueryParam($_GET        ?? []),
-            formParam:   new FormParam($_POST        ?? []),
-            serverParam: new ServerParam($_SERVER    ?? []),
-            cookieParam: new CookieParam($_COOKIE    ?? []),
-            fileParam:   new FileParam($_FILES       ?? []),
-            sessionParam:new SessionParam($_SESSION  ?? []),
-            streamInputService: new StreamInputService('php://input'),
-        );
-    }
 }

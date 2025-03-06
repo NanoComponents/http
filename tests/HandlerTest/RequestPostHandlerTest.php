@@ -2,8 +2,7 @@
 
 namespace NanoLibs\Http\Tests\HandlerTest;
 
-use NanoLibs\Http\Param\ParameterFactory;
-use NanoLibs\Http\Request;
+use NanoLibs\Http\RequestFactory;
 use PHPUnit\Framework\TestCase;
 
 class RequestPostHandlerTest extends TestCase
@@ -16,7 +15,7 @@ class RequestPostHandlerTest extends TestCase
             'isVerified'    => true
         ];
         $_POST = $postDefault;
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals($postDefault['name'], $request->getForm()->get('name'));
         $this->assertEquals($postDefault['age'], $request->getForm()->get('age'));
@@ -27,7 +26,7 @@ class RequestPostHandlerTest extends TestCase
     public function testPostHandlerProcessEmptyPostParameters()
     {
         $_POST = [];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEmpty($request->getForm()->getAll());
     }
@@ -40,7 +39,7 @@ class RequestPostHandlerTest extends TestCase
             'filter' => 'category=books&price<50'
         ];
         
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('query with spaces', $request->getForm()->get('search')); // + should be decoded to space
         $this->assertEquals('category=books&price<50', $request->getForm()->get('filter')); // %26 should decode to &
@@ -53,7 +52,7 @@ class RequestPostHandlerTest extends TestCase
             'tags' => ['php', 'zend', 'phpunit']
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals(['php', 'zend', 'phpunit'], $request->getForm()->get('tags'));
     }
@@ -65,7 +64,7 @@ class RequestPostHandlerTest extends TestCase
             '0' => 'first',
             '1' => 'second'
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
     
         $this->assertEquals('first', $request->getForm()->get(0));
         $this->assertEquals('second', $request->getForm()->get(1));
@@ -78,7 +77,7 @@ class RequestPostHandlerTest extends TestCase
             'isActive' => 'true',
             'isAdmin'  => 'false'
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('true', $request->getForm()->get('isActive'));
         $this->assertEquals('false', $request->getForm()->get('isAdmin'));
@@ -90,7 +89,7 @@ class RequestPostHandlerTest extends TestCase
         $_POST = [
             'name' => 'iman'
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertNull($request->getForm()->get('age')); // Missing key
     }
@@ -101,7 +100,7 @@ class RequestPostHandlerTest extends TestCase
         $_POST = [
             'largeData' => str_repeat('a', 10000) // 10,000 characters
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals(str_repeat('a', 10000), $request->getForm()->get('largeData'));
     }
@@ -115,7 +114,7 @@ class RequestPostHandlerTest extends TestCase
                 'age'  => '22'
             ]
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('iman', $request->getForm()->get('user')['name']);
         $this->assertEquals('22', $request->getForm()->get('user')['age']);
@@ -127,7 +126,7 @@ class RequestPostHandlerTest extends TestCase
         $_POST = [
             'search' => 'query%20with%20spaces'
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
     
         $this->assertEquals('query with spaces', $request->getForm()->get('search'));
     }
@@ -138,7 +137,7 @@ class RequestPostHandlerTest extends TestCase
         $_POST = [
             'invalid' => new \stdClass() // Invalid data type
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
     
         $this->assertNull($request->getForm()->get('invalid')); // Assuming invalid types return null
     }
@@ -149,7 +148,7 @@ class RequestPostHandlerTest extends TestCase
         $_POST = [
             'message' => 'こんにちは' // Japanese characters
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
     
         $this->assertEquals('こんにちは', $request->getForm()->get('message'));
     }

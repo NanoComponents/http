@@ -6,14 +6,14 @@ use NanoLibs\Http\Handlers\CookieParamHandler;
 use NanoLibs\Http\Handlers\FormParamHandler;
 use NanoLibs\Http\Handlers\QueryParamHandler;
 use NanoLibs\Http\Handlers\ServerParamHandler;
-use NanoLibs\Http\Request;
+use NanoLibs\Http\RequestFactory;
 use PHPUnit\Framework\TestCase;
 
 class RequestGetParamTypeTest extends TestCase
 {
     public function testGetQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initialize();
+        $request          = RequestFactory::create();
 
         $paramHandlerType = QueryParamHandler::class;
         $handlerType      = $request->getQuery();
@@ -22,7 +22,7 @@ class RequestGetParamTypeTest extends TestCase
 
     public function testFormQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initialize();
+        $request          = RequestFactory::create();
 
         $paramHandlerType = FormParamHandler::class;
         $handlerType      = $request->getForm();
@@ -31,7 +31,7 @@ class RequestGetParamTypeTest extends TestCase
 
     public function testServerQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initialize();
+        $request          = RequestFactory::create();
 
         $paramHandlerType = ServerParamHandler::class;
         $handlerType      = $request->getServer();
@@ -40,7 +40,7 @@ class RequestGetParamTypeTest extends TestCase
 
     public function testCookieQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initialize();
+        $request          = RequestFactory::create();
 
         $paramHandlerType = CookieParamHandler::class;
         $handlerType      = $request->getCookie();
@@ -49,7 +49,7 @@ class RequestGetParamTypeTest extends TestCase
 
     public function testFileQueryReturnCorrectHandler(): void
     {
-        $request          = Request::initialize();
+        $request          = RequestFactory::create();
 
         $paramHandlerType = FormParamHandler::class;
         $handlerType      = $request->getForm();

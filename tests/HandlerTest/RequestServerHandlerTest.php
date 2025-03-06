@@ -5,7 +5,7 @@ namespace NanoLibs\Http\Tests\HandlerTest;
 use NanoLibs\Http\Handlers\ServerParamHandler;
 use NanoLibs\Http\Interfaces\ParamHandler\ServerHandlerInterface;
 use NanoLibs\Http\Interfaces\ParamInterface;
-use NanoLibs\Http\Request;
+use NanoLibs\Http\RequestFactory;
 use PHPUnit\Framework\TestCase;
 
 class RequestServerHandlerTest extends TestCase
@@ -26,13 +26,13 @@ class RequestServerHandlerTest extends TestCase
 
     public function testMissingServerParam()
     {
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $this->assertNull($request->getServer()->get('NON_EXISTENT_PARAM'));
     }
 
     public function testServerParamWithDefaultValue()
     {
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $this->assertNull($request->getServer()->get('UNKNOWN_PARAM', 'default'));
     }
 

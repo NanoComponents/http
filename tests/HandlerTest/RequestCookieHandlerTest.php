@@ -2,7 +2,7 @@
 
 namespace NanoLibs\Http\Tests\HandlerTest;
 
-use NanoLibs\Http\Request;
+use NanoLibs\Http\RequestFactory;
 use PHPUnit\Framework\TestCase;
 
 class RequestCookieHandlerTest extends TestCase
@@ -18,7 +18,7 @@ class RequestCookieHandlerTest extends TestCase
         $_COOKIE['user_id'] = '12345';
         $_COOKIE['session_token'] = 'abcdef';
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('12345', $request->getCookie()->get('user_id'));
         $this->assertEquals('abcdef', $request->getCookie()->get('session_token'));
@@ -26,7 +26,7 @@ class RequestCookieHandlerTest extends TestCase
 
     public function testMissingCookieParam()
     {
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $this->assertNull($request->getCookie()->get('NON_EXISTENT_COOKIE'));
     }
 
@@ -35,7 +35,7 @@ class RequestCookieHandlerTest extends TestCase
         $_COOKIE['user_id'] = '';
         $_COOKIE['session_token'] = null;
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('', $request->getCookie()->get('user_id'));
         $this->assertNull($request->getCookie()->get('session_token'));
@@ -43,14 +43,14 @@ class RequestCookieHandlerTest extends TestCase
 
     public function testCookieParamWithDefaultValue()
     {
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $this->assertNull($request->getCookie()->get('UNKNOWN_COOKIE'));
     }
 
     public function testCaseSensitiveCookieNames()
     {
         $_COOKIE['UserID'] = '123';
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertNull($request->getCookie()->get('userid')); // Case-sensitive check
         $this->assertEquals('123', $request->getCookie()->get('UserID'));
@@ -59,7 +59,7 @@ class RequestCookieHandlerTest extends TestCase
     public function testSpecialCharactersInCookieNameAndValue()
     {
         $_COOKIE['user@name'] = 'special#value!';
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('special#value!', $request->getCookie()->get('user@name'));
     }
@@ -67,7 +67,7 @@ class RequestCookieHandlerTest extends TestCase
     public function testNumericCookieValueHandling()
     {
         $_COOKIE['count'] = '42';
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertSame('42', $request->getCookie()->get('count')); // Returned as string
     }
@@ -78,7 +78,7 @@ class RequestCookieHandlerTest extends TestCase
         $_COOKIE['is_active'] = '1';
         $_COOKIE['is_banned'] = '0';
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('true', $request->getCookie()->get('is_admin'));
         $this->assertEquals('1', $request->getCookie()->get('is_active'));
@@ -88,7 +88,7 @@ class RequestCookieHandlerTest extends TestCase
     public function testHasMethod()
     {
         $_COOKIE['exists'] = 'yes';
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertTrue($request->getCookie()->isCookieExists('exists'));
         $this->assertFalse($request->getCookie()->isCookieExists('does_not_exist'));
@@ -102,7 +102,7 @@ class RequestCookieHandlerTest extends TestCase
             'cookie3' => 'val3'
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $all = $request->getCookie()->getAll();
 
         $this->assertCount(3, $all);
@@ -114,7 +114,7 @@ class RequestCookieHandlerTest extends TestCase
     public function testEmptyStringVsNotPresent()
     {
         $_COOKIE['empty'] = '';
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertTrue($request->getCookie()->isCookieExists('empty'));
         $this->assertEquals('', $request->getCookie()->get('empty'));
@@ -126,7 +126,7 @@ class RequestCookieHandlerTest extends TestCase
         $largeValue = str_repeat('a', 4096); // 4KB
         $_COOKIE['large'] = $largeValue;
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $this->assertEquals($largeValue, $request->getCookie()->isCookieExists('large'));
     }
 
@@ -138,7 +138,7 @@ class RequestCookieHandlerTest extends TestCase
             'third' => '3'
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $this->assertCount(3, $request->getCookie()->getAll());
     }
 
@@ -147,7 +147,7 @@ class RequestCookieHandlerTest extends TestCase
         $_COOKIE['test'] = 'old';
         $_COOKIE['test'] = 'new'; // Overwrite
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $this->assertEquals('new', $request->getCookie()->get('test'));
     }
 
@@ -156,7 +156,7 @@ class RequestCookieHandlerTest extends TestCase
         $_COOKIE['temp'] = 'data';
         unset($_COOKIE['temp']); // Simulate unset during request
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $this->assertFalse($request->getCookie()->isCookieExists('temp'));
         $this->assertNull($request->getCookie()->get('temp'));
     }
@@ -164,7 +164,7 @@ class RequestCookieHandlerTest extends TestCase
     public function testMalformedCookieName()
     {
         $_COOKIE['invalid;name'] = 'value';
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('value', $request->getCookie()->get('invalid;name'));
     }

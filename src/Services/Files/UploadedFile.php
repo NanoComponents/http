@@ -2,6 +2,7 @@
 
 namespace NanoLibs\Http\Services\Files;
 
+use NanoLibs\Http\Exceptions\UnknownErrorStatus;
 use NanoLibs\Http\Interfaces\Service\UploadedFileInterface;
 use NanoLibs\Http\Rules\FileUploadingRules;
 
@@ -61,6 +62,9 @@ class UploadedFile implements UploadedFileInterface
         return $this->size;
     }
 
+    /**
+     * @throws UnknownErrorStatus
+     */
     public function getFileErrorMessages(): array
     {
         return FileUploadingRules::checkAllFileError($this);

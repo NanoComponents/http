@@ -10,6 +10,10 @@ class UploadRegistry
 {
     /** @var array<UploadedForm> $uploadedFieldArray */
     protected array $uploadedFieldArray = [];
+
+    /**
+     * @throws InvalidFileArrayException
+     */
     public function __construct(
         protected array $globalArray,
     ) {
@@ -67,6 +71,9 @@ class UploadRegistry
         return $this->uploadedFieldArray[--$index];
     }
 
+    /**
+     * @throws InvalidFileArrayException
+     */
     protected function handleSingleFormSingleFileUploaded(array $fieldArray, UploadedFormInterface $form): ?bool
     {
         if ($this->isSingleFormAndSingleFileUploaded($fieldArray)) {
@@ -85,6 +92,9 @@ class UploadRegistry
         return false;
     }
 
+    /**
+     * @throws InvalidFileArrayException
+     */
     protected function handleNotNestedFileUploaded($fieldSuffix, $value, UploadedFormInterface $form): bool
     {
         if ($this->isNotNested($fieldSuffix)) {
@@ -103,6 +113,9 @@ class UploadRegistry
         return false;
     }
 
+    /**
+     * @throws InvalidFileArrayException
+     */
     protected function handleNestedFileUploaded(array $value, string $fieldSuffix, UploadedFormInterface $form): void
     {
         foreach ($value as $fileData) {

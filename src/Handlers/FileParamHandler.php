@@ -36,6 +36,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
     {
         foreach ($this->getFilesArrayOfSpecifiedFormNameOrAll() as $file) {
             if ($fieldName === $file->getFieldNameSuffix()) {
+                print_r($file->getFieldNameSuffix());
                 return true;
             }
         }

@@ -2,7 +2,7 @@
 
 namespace NanoLibs\Http\Tests\HandlerTest;
 
-use NanoLibs\Http\Request;
+use NanoLibs\Http\RequestFactory;
 use PHPUnit\Framework\TestCase;
 
 class RequestFileHandlerTest extends TestCase
@@ -20,7 +20,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertTrue($request->getFile()->isFieldNameExists('file'));
         $this->assertEquals('valid-image.jpg', $request->getFile()->getName()[0]);
@@ -40,7 +40,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $this->assertFalse($request->getFile()->isFileExists('file'));
         $this->assertEquals('The uploaded file was above max allowed size', $request->getFile()->getErrorMessages('file')[0]);
     }
@@ -58,7 +58,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertFalse($request->getFile()->isFieldNameExists('notfile'));
         $this->assertEquals('The uploaded file type is invalid', $request->getFile()->getErrorMessages()[0]);
@@ -68,7 +68,7 @@ class RequestFileHandlerTest extends TestCase
     {
         $_FILES = [];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertFalse($request->getFile()->isFileExists('file'));
         $this->assertNull($request->getFile()->get('file'));
@@ -87,7 +87,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertFalse($request->getFile()->isFileExists('files'));
         $this->assertEquals('The uploaded file exceeds the upload_max_filesize directive in php.ini.', $request->getFile()->getErrorMessages('file')[0]);
@@ -106,7 +106,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertCount(2, $request->getFile()->getAll());
         $this->assertEquals('image1.jpg', $request->getFile()->getAll()[0]->getFileName());
@@ -126,7 +126,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertFalse($request->getFile()->isFileExists('file'));
         $this->assertEquals('The uploaded file type is invalid', $request->getFile()->getErrorMessages('file')[0]);
@@ -145,7 +145,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertTrue($request->getFile()->isFieldNameExists('file'));
         $this->assertEquals('file with spaces and üñîçødë.jpg', $request->getFile()->getName()[0]);
@@ -164,7 +164,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertTrue($request->getFile()->isFieldNameExists('file'));
         $this->assertEquals('large-file.mp4', $request->getFile()->getName()[0]);
@@ -183,7 +183,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertTrue($request->getFile()->isFileExists('file2.jpg'));
         $this->assertFalse($request->getFile()->isFileExists('file3.jpg'));
@@ -215,7 +215,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $fileHandler = $request->getFile();
 
         $this->assertTrue($fileHandler->isFieldNameExists('user.documents'));
@@ -245,7 +245,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $fileHandler = $request->getFile();
 
         $this->assertTrue($fileHandler->isFieldNameExists('avatar'));
@@ -290,7 +290,7 @@ class RequestFileHandlerTest extends TestCase
             ]
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
         $fileHandler = $request->getFile();
 
         $uploadedFiles = $fileHandler->getAll();

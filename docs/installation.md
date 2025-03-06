@@ -21,7 +21,7 @@
 ## Verification
 ```php
 use NanoLibs\Http\Request;
-$request = Request::initialize();
+$request = RequestFactory::create();
 $serverData = $request->getServer()->getAll();
 var_dump($serverData);
 ```

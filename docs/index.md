@@ -14,7 +14,7 @@ A robust, modular PHP library for handling HTTP requests, providing seamless acc
 ```php
 use NanoLibs\Http\Request;
 
-$request = Request::initialize();
+$request = RequestFactory::create();
 $file = $request->getFile('user.documents')->getAll()[0]; // Access nested file
 echo $file->getFileName();
 ```

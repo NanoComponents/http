@@ -2,7 +2,7 @@
 
 namespace NanoLibs\Http\Tests\HandlerTest;
 
-use NanoLibs\Http\Request;
+use NanoLibs\Http\RequestFactory;
 use PHPUnit\Framework\TestCase;
 
 class RequestGetHandlerTest extends TestCase
@@ -15,7 +15,7 @@ class RequestGetHandlerTest extends TestCase
             'isVerified'    => true
         ];
         $_GET = $getDefault;
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals($getDefault['name'], $request->getQuery()->get('name'));
         $this->assertEquals($getDefault['age'], $request->getQuery()->get('age'));
@@ -25,7 +25,7 @@ class RequestGetHandlerTest extends TestCase
     public function testQueryHandlerProcessEmptyQueryParameters()
     {
         $_GET = [];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEmpty($request->getQuery()->getAll());
     }
@@ -38,7 +38,7 @@ class RequestGetHandlerTest extends TestCase
         ];
         
         // Initialize the Request class with the $_GET data
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         // After the handler processes the query parameters:
         $this->assertEquals('query with spaces', $request->getQuery()->get('search')); // + should be decoded to space
@@ -51,7 +51,7 @@ class RequestGetHandlerTest extends TestCase
             'tags' => ['php', 'zend', 'phpunit']
         ];
 
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals(['php', 'zend', 'phpunit'], $request->getQuery()->get('tags'));
     }
@@ -62,7 +62,7 @@ class RequestGetHandlerTest extends TestCase
             '0' => 'first',
             '1' => 'second'
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
     
         $this->assertEquals('first', $request->getQuery()->get(0));
         $this->assertEquals('second', $request->getQuery()->get(1));
@@ -73,7 +73,7 @@ class RequestGetHandlerTest extends TestCase
             'isActive' => 'true',
             'isAdmin'  => 'false'
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('true', $request->getQuery()->get('isActive'));
         $this->assertEquals('false', $request->getQuery()->get('isAdmin'));
@@ -84,7 +84,7 @@ class RequestGetHandlerTest extends TestCase
         $_GET = [
             'name' => 'iman'
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('iman', $request->getQuery()->get('name'));
         $this->assertNull($request->getQuery()->get('age')); 
@@ -95,7 +95,7 @@ class RequestGetHandlerTest extends TestCase
         $_GET = [
             'largeData' => str_repeat('a', 10000) // 10,000 characters
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals(str_repeat('a', 10000), $request->getQuery()->get('largeData'));
     }
@@ -107,7 +107,7 @@ class RequestGetHandlerTest extends TestCase
                 'age'  => '22'
             ]
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
 
         $this->assertEquals('iman', $request->getQuery()->get('user')['name']);
         $this->assertEquals('22', $request->getQuery()->get('user')['age']);
@@ -118,7 +118,7 @@ class RequestGetHandlerTest extends TestCase
         $_GET = [
             'search' => 'query%20with%20spaces'
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
     
         $this->assertEquals('query with spaces', $request->getQuery()->get('search'));
     }
@@ -128,7 +128,7 @@ class RequestGetHandlerTest extends TestCase
         $_GET = [
             'invalid' => new \stdClass() // Invalid data type
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
     
         $this->assertNull($request->getQuery()->get('invalid')); // Assuming invalid types return null
     }
@@ -137,7 +137,7 @@ class RequestGetHandlerTest extends TestCase
         $_GET = [
             'message' => 'こんにちは' // Japanese characters
         ];
-        $request = Request::initialize();
+        $request = RequestFactory::create();
     
         $this->assertEquals('こんにちは', $request->getQuery()->get('message'));
     }
