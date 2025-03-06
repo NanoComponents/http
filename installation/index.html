@@ -123,7 +123,7 @@
 </ol>
 <h2 id="verification">Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="x">use NanoLibs\Http\Request;</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">$serverData = $request-&gt;getServer()-&gt;getAll();</span>
 <span class="x">var_dump($serverData);</span>
 </code></pre></div>

@@ -123,63 +123,63 @@
 <h2 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h2>
 <p>Create a <code>Request</code> instance with superglobals:
 <div class="highlight"><pre><span></span><code><span class="x">use NanoLibs\Http\Request;</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 </code></pre></div></p>
 <h2 id="query-parameters">Query Parameters<a class="headerlink" href="#query-parameters" title="Permanent link">&para;</a></h2>
 <p>Access <code>$_GET</code> data, including nested arrays and special characters:
 <div class="highlight"><pre><span></span><code><span class="x">$_GET = [&#39;user&#39; =&gt; [&#39;name&#39; =&gt; &#39;Iman&#39;], &#39;search&#39; =&gt; &#39;query%20with%20spaces&#39;];</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">echo $request-&gt;getQuery()-&gt;get(&#39;user&#39;)[&#39;name&#39;]; // &quot;Iman&quot;</span>
 <span class="x">echo $request-&gt;getQuery()-&gt;get(&#39;search&#39;);       // &quot;query with spaces&quot;</span>
 </code></pre></div></p>
 <h2 id="form-data">Form Data<a class="headerlink" href="#form-data" title="Permanent link">&para;</a></h2>
 <p>Handle <code>$_POST</code> with arrays and UTF-8:
 <div class="highlight"><pre><span></span><code><span class="x">$_POST = [&#39;tags&#39; =&gt; [&#39;php&#39;, &#39;zend&#39;], &#39;message&#39; =&gt; &#39;こんにちは&#39;];</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">$tags = $request-&gt;getForm()-&gt;get(&#39;tags&#39;); // [&#39;php&#39;, &#39;zend&#39;]</span>
 <span class="x">echo $request-&gt;getForm()-&gt;get(&#39;message&#39;); // &quot;こんにちは&quot;</span>
 </code></pre></div></p>
 <h2 id="file-uploads">File Uploads<a class="headerlink" href="#file-uploads" title="Permanent link">&para;</a></h2>
 <h3 id="single-file">Single File<a class="headerlink" href="#single-file" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="x">$_FILES = [&#39;avatar&#39; =&gt; [&#39;name&#39; =&gt; &#39;pic.jpg&#39;, &#39;type&#39; =&gt; &#39;image/jpeg&#39;, &#39;tmp_name&#39; =&gt; &#39;/tmp/php123&#39;, &#39;error&#39; =&gt; 0, &#39;size&#39; =&gt; 2000, &#39;full_path&#39; =&gt; &#39;pic.jpg&#39;]];</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">$file = $request-&gt;getFile(&#39;avatar&#39;)-&gt;getAll()[0];</span>
 <span class="x">echo $file-&gt;getFileName(); // &quot;pic.jpg&quot;</span>
 </code></pre></div>
 <h3 id="multiple-files">Multiple Files<a class="headerlink" href="#multiple-files" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="x">$_FILES = [&#39;docs&#39; =&gt; [&#39;name&#39; =&gt; [&#39;doc1.pdf&#39;, &#39;doc2.pdf&#39;], &#39;type&#39; =&gt; [&#39;application/pdf&#39;, &#39;application/pdf&#39;], &#39;tmp_name&#39; =&gt; [&#39;/tmp/php1&#39;, &#39;/tmp/php2&#39;], &#39;error&#39; =&gt; [0, 0], &#39;size&#39; =&gt; [3000, 4000], &#39;full_path&#39; =&gt; [&#39;doc1.pdf&#39;, &#39;doc2.pdf&#39;]]];</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">$files = $request-&gt;getFile(&#39;docs&#39;)-&gt;getAll();</span>
 <span class="x">echo count($files); // 2</span>
 </code></pre></div>
 <h3 id="nested-files">Nested Files<a class="headerlink" href="#nested-files" title="Permanent link">&para;</a></h3>
 <p>Access nested files using dot-notation:
 <div class="highlight"><pre><span></span><code><span class="x">$_FILES = [&#39;user&#39; =&gt; [&#39;name&#39; =&gt; [&#39;documents&#39; =&gt; [&#39;resume.pdf&#39;]], &#39;type&#39; =&gt; [&#39;documents&#39; =&gt; [&#39;application/pdf&#39;]], &#39;tmp_name&#39; =&gt; [&#39;documents&#39; =&gt; [&#39;/tmp/php123&#39;]], &#39;error&#39; =&gt; [&#39;documents&#39; =&gt; [0]], &#39;size&#39; =&gt; [&#39;documents&#39; =&gt; [5000]], &#39;full_path&#39; =&gt; [&#39;documents&#39; =&gt; [&#39;resume.pdf&#39;]]]];</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">$file = $request-&gt;getFile(&#39;user.documents&#39;)-&gt;getAll()[0];</span>
 <span class="x">echo $file-&gt;getFieldNameSuffix(); // &quot;user.documents&quot;</span>
 <span class="x">echo $file-&gt;getFileName();        // &quot;resume.pdf&quot;</span>
 </code></pre></div></p>
 <h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="x">$_FILES = [&#39;file&#39; =&gt; [&#39;name&#39; =&gt; &#39;large.exe&#39;, &#39;type&#39; =&gt; &#39;application/octet-stream&#39;, &#39;tmp_name&#39; =&gt; &#39;/tmp/php123&#39;, &#39;error&#39; =&gt; 1, &#39;size&#39; =&gt; 5000000, &#39;full_path&#39; =&gt; &#39;large.exe&#39;]];</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">$errors = $request-&gt;getFile(&#39;file&#39;)-&gt;getErrorMessages();</span>
 <span class="x">echo $errors[0]; // &quot;The uploaded file exceeds the upload_max_filesize directive in php.ini.&quot;</span>
 </code></pre></div>
 <h2 id="cookies">Cookies<a class="headerlink" href="#cookies" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="x">$_COOKIE = [&#39;user_id&#39; =&gt; &#39;123&#39;, &#39;is_admin&#39; =&gt; &#39;true&#39;];</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">echo $request-&gt;getCookie()-&gt;get(&#39;user_id&#39;);   // &quot;123&quot;</span>
 <span class="x">$allCookies = $request-&gt;getCookie()-&gt;getAll(); // [&#39;user_id&#39; =&gt; &#39;123&#39;, &#39;is_admin&#39; =&gt; &#39;true&#39;]</span>
 </code></pre></div>
 <h2 id="session">Session<a class="headerlink" href="#session" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="x">$_SESSION = [&#39;user_id&#39; =&gt; &#39;12345&#39;, &#39;auth&#39; =&gt; true];</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">echo $request-&gt;getSession()-&gt;get(&#39;user_id&#39;); // &quot;12345&quot;</span>
 </code></pre></div>
 <h2 id="server-data">Server Data<a class="headerlink" href="#server-data" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="x">$_SERVER = [&#39;REQUEST_METHOD&#39; =&gt; &#39;POST&#39;, &#39;HTTPS&#39; =&gt; &#39;on&#39;];</span>
-<span class="x">$request = Request::initialize();</span>
+<span class="x">$request = RequestFactory::create();</span>
 <span class="x">echo $request-&gt;getServer()-&gt;get(&#39;REQUEST_METHOD&#39;); // &quot;POST&quot;</span>
 </code></pre></div>
 <h2 id="stream-input">Stream Input<a class="headerlink" href="#stream-input" title="Permanent link">&para;</a></h2>
