@@ -31,10 +31,10 @@ composer require nanolibs/http
 ```php
 require 'vendor/autoload.php';
 
-use NanoLibs\Http\Request;
+use NanoLibs\Http\RequestFactory;
 
-$request = new Request();
-echo $request->getMethod();
+$request = new RequestFactory::create();
+echo $request->getServer()->getMethod();
 ```
 
 ---
