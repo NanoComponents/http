@@ -79,12 +79,13 @@ echo $request->getSession()->get('user_id'); // "12345"
 ```php
 $_SERVER = ['REQUEST_METHOD' => 'POST', 'HTTPS' => 'on'];
 $request = RequestFactory::create();
-echo $request->getServer()->get('REQUEST_METHOD'); // "POST"
+echo $request->getServer()->getMethod(); // "POST"
 ```
 
 ## Stream Input
 Process raw request bodies (e.g., JSON):
 ```php
-$service = $request->getStreamInput();
-$service->toArray(); // e.g., ['name' => 'John'] from '{"name": "John"}'
+$request = RequestFactory::create();
+$stream = $request->getStreamInput();
+$stream->toArray(); // e.g., ['name' => 'John'] from '{"name": "John"}'
 ```
