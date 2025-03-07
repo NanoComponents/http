@@ -7,18 +7,16 @@ use NanoLibs\Http\Interfaces\ParamHandler\QueryHandlerInterface;
 use NanoLibs\Http\Interfaces\ParamInterface;
 use NanoLibs\Http\Traits\ParamGetterTrait;
 
+/**
+ * @extends BaseParameter<QueryhandlerInterface>
+ */
 class QueryParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;
 
-    public function get(string $key): string|array|object|int|null
-    {
-        if (!isset($this->parameters[$key])) {
-            return null;
-        }
-        return $this->parameters[$key];
-    }
-
+    /**
+     * @return array<array<mixed>|mixed>
+     */
     public function getAll(): array
     {
         return $this->parameters;

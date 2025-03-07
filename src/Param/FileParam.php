@@ -7,6 +7,9 @@ use NanoLibs\Http\Interfaces\ParamHandler\FileHandlerInterface;
 use NanoLibs\Http\Interfaces\ParamInterface;
 use NanoLibs\Http\Traits\ParamGetterTrait;
 
+/**
+ * @extends BaseParameter<FileHandlerInterface>
+ */
 class FileParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;

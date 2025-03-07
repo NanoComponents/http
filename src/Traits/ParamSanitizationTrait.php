@@ -13,7 +13,7 @@ trait ParamSanitizationTrait {
         return null;
     }
 
-    protected function handleParamValueTypes(mixed $value)
+    protected function handleParamValueTypes(mixed $value): mixed
     {
         if (is_object($value)) {
             return null;
@@ -24,11 +24,14 @@ trait ParamSanitizationTrait {
         if (is_string($value)) {
             return urldecode($value);
         }
-        if (is_int(intval($value))) {
+        if (is_int(($value))) {
             return $value;
         }
-        if (is_bool($value)) {
-            return $value;
+        if ($value === true) {
+            return true;
+        }
+        if ($value === false) {
+            return false;
         }
         return null;
     }

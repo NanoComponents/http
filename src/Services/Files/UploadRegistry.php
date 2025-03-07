@@ -3,6 +3,7 @@
 namespace NanoLibs\Http\Services\Files;
 
 use NanoLibs\Http\Exceptions\InvalidFileArrayException;
+use NanoLibs\Http\Interfaces\Service\UploadedFileInterface;
 use NanoLibs\Http\Interfaces\Service\UploadedFormInterface;
 use NanoLibs\Http\Serializers\GlobalFileArraySerializer;
 
@@ -12,6 +13,7 @@ class UploadRegistry
     protected array $uploadedFieldArray = [];
 
     /**
+     * @param array<string, array<string, mixed>> $globalArray
      * @throws InvalidFileArrayException
      */
     public function __construct(
@@ -21,13 +23,22 @@ class UploadRegistry
         foreach ($serializedArray as $fieldName => $fieldArray) {
 
             $form = $this->addUploadedField($fieldName);
+            /**
+             * @var array<string, string> $fieldArray
+             */
             if ($this->handleSingleFormSingleFileUploaded($fieldArray, $form)) {
                 continue;
             }
             foreach ($fieldArray as $fieldSuffix => $value) {
+                /**
+                 * @var array<string, string> $value
+                 */
                 if ($this->handleNotNestedFileUploaded($fieldSuffix, $value, $form)) {
                     continue;
                 }
+                /**
+                 * @var array<int, array<string, string>> $value
+                 */
                 $this->handleNestedFileUploaded($value, $fieldSuffix, $form);
             }
         }
@@ -35,8 +46,8 @@ class UploadRegistry
     }
 
     /**
-     * @param mixed $fieldName
-     * @return array<UploadedFile>
+     * @param ?string $fieldName
+     * @return array<int, UploadedFileInterface>
      */
     public function getUploadedFile(?string $fieldName = null): array
     {
@@ -54,17 +65,6 @@ class UploadRegistry
         return $result;
     }
 
-    public function getUploadedFieldNames(): array 
-    {
-        $result = [];
-        foreach ($this->uploadedFieldArray as $field) {
-            foreach ($field->getFieldNames() as $fieldName) {
-                $result[] = $fieldName;
-            }
-        }
-        return $result;
-    }
-
     protected function addUploadedField(string $fieldName): UploadedForm
     {
         $index = array_push($this->uploadedFieldArray, new UploadedForm($fieldName));
@@ -72,30 +72,45 @@ class UploadRegistry
     }
 
     /**
+     * @param array<string, string> $fieldArray
      * @throws InvalidFileArrayException
      */
     protected function handleSingleFormSingleFileUploaded(array $fieldArray, UploadedFormInterface $form): ?bool
     {
         if ($this->isSingleFormAndSingleFileUploaded($fieldArray)) {
             $fileData = $this->extractFileData($fieldArray);
-            $form->addUploadedFile(new UploadedFile(
-                $fileData['name'],
-                $fileData['full_path'],
-                $fileData['type'],
-                $fileData['tmp_name'],
-                $fileData['error'],
-                $fileData['size'],
-                $form->getFormName()
-            ));
+                $form->addUploadedFile(new UploadedFile(
+                    $fileData['name'],
+                    $fileData['full_path'],
+                    $fileData['type'],
+                    $fileData['tmp_name'],
+                    $fileData['error'],
+                    $fileData['size'],
+                    $form->getFormName()
+                ));
             return true;
         }
         return false;
     }
 
     /**
+     * @param array<string, int|string> $fileData
+     * @return bool
+     */
+    protected function fileDataStringifyValidator(array $fileData): bool
+    {
+        return is_string($fileData['name'])
+            && is_string($fileData['tmp_name'])
+            && is_string($fileData['full_path'])
+            && is_string($fileData['type']);
+    }
+    /**
+     * @param string|int $fieldSuffix
+     * @param array<string, string> $value
+     * @param UploadedFormInterface $form
      * @throws InvalidFileArrayException
      */
-    protected function handleNotNestedFileUploaded($fieldSuffix, $value, UploadedFormInterface $form): bool
+    protected function handleNotNestedFileUploaded(string|int $fieldSuffix, array $value, UploadedFormInterface $form): bool
     {
         if ($this->isNotNested($fieldSuffix)) {
             $fileData = $this->extractFileData($value);
@@ -114,6 +129,9 @@ class UploadRegistry
     }
 
     /**
+     * @param array<int, array<string, string>> $value
+     * @param string $fieldSuffix
+     * @param UploadedFormInterface $form
      * @throws InvalidFileArrayException
      */
     protected function handleNestedFileUploaded(array $value, string $fieldSuffix, UploadedFormInterface $form): void
@@ -133,6 +151,8 @@ class UploadRegistry
     }
 
     /**
+     * @param array<string, string> $fileData
+     * @return array<string, string>
      * @throws InvalidFileArrayException
      */
     protected function extractFileData(array $fileData): array
@@ -158,6 +178,10 @@ class UploadRegistry
         return false;
     }
 
+    /**
+     * @param array<string, array<string, mixed>|string> $fieldArray
+     * @return bool
+     */
     protected function isSingleFormAndSingleFileUploaded(array $fieldArray): bool
     {
         $value = $fieldArray[array_key_first($fieldArray)];

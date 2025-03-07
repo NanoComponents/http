@@ -7,6 +7,9 @@ use NanoLibs\Http\Interfaces\ParamHandler\FormHandlerInterface;
 use NanoLibs\Http\Interfaces\ParamInterface;
 use NanoLibs\Http\Traits\ParamGetterTrait;
 
+/**
+ * @extends BaseParameter<FormHandlerInterface>
+ */
 class FormParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;

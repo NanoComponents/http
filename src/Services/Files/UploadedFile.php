@@ -2,34 +2,22 @@
 
 namespace NanoLibs\Http\Services\Files;
 
+use NanoLibs\Http\Exceptions\InvalidUploadMessagesPathException;
 use NanoLibs\Http\Exceptions\UnknownErrorStatus;
 use NanoLibs\Http\Interfaces\Service\UploadedFileInterface;
 use NanoLibs\Http\Rules\FileUploadingRules;
 
 class UploadedFile implements UploadedFileInterface
 {
-    protected array $detectedError = [];
     public function __construct(
         protected string $fileName,
         protected string $fullPath,
         protected string $fileType,
         protected string $tempName,
-        protected string $error,
-        protected string $size,
+        protected string|int $error,
+        protected string|int $size,
         protected string $fieldNameSuffix = ''
     ) {
-    }
-
-    public function getFileArray(): array
-    {
-        return [
-            'name'      =>      $this->fileName,
-            'full_path' =>      $this->fullPath,
-            'type'      =>      $this->fileType,
-            'tmp_name'  =>      $this->tempName,
-            'error'     =>      $this->error,
-            'size'      =>      $this->size
-        ];
     }
 
     public function getFileName(): string
@@ -52,18 +40,19 @@ class UploadedFile implements UploadedFileInterface
         return $this->tempName;
     }
 
-    public function getFileError(): string
+    public function getFileError(): string|int
     {
         return $this->error;
     }
 
-    public function getFileSize(): string
+    public function getFileSize(): int
     {
-        return $this->size;
+        return (int)$this->size;
     }
 
     /**
      * @throws UnknownErrorStatus
+     * @throws InvalidUploadMessagesPathException
      */
     public function getFileErrorMessages(): array
     {

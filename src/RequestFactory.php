@@ -12,6 +12,15 @@ use NanoLibs\Http\Services\StreamInput\StreamInputService;
 
 class RequestFactory
 {
+    /**
+     * @param array<string, mixed>|null $get
+     * @param array<string, mixed>|null $post
+     * @param array<string, mixed>|null $files
+     * @param array<string, mixed>|null $cookies
+     * @param array<string, mixed>|null $server
+     * @param array<string, mixed>|null $session
+     * @return Request
+     */
     public static function create(
         ?array $get = null,
         ?array $post = null,
@@ -19,15 +28,14 @@ class RequestFactory
         ?array $cookies = null,
         ?array $server = null,
         ?array $session = null
-    ): Request
-    {
+    ): Request {
         return new Request(
-            queryParam: new QueryParam($get ?? $_GET),
-            formParam: new FormParam($post ?? $_POST),
-            serverParam: new ServerParam($server ?? $_SERVER),
-            cookieParam: new CookieParam($cookies ?? $_COOKIE),
-            fileParam: new FileParam($files ?? $_FILES),
-            sessionParam: new SessionParam($session ?? $_SESSION ?? []),
+            queryParam:         new QueryParam($get ?? $_GET),
+            formParam:          new FormParam($post ?? $_POST),
+            serverParam:        new ServerParam($server ?? $_SERVER),
+            cookieParam:        new CookieParam($cookies ?? $_COOKIE),
+            fileParam:          new FileParam($files ?? $_FILES),
+            sessionParam:       new SessionParam($session ?? $_SESSION ?? []),
             streamInputService: new StreamInputService('php://input'),
         );
     }

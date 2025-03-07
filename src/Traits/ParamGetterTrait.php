@@ -4,14 +4,18 @@ namespace NanoLibs\Http\Traits;
 
 trait ParamGetterTrait {
 
-    public function get(string $key): string|array|object|null
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function get(string $key): mixed
     {
-        if (\array_key_exists($key, $this->parameters)) {
-            return $this->parameters[$key];
-        }
-        return null;
+        return $this->parameters[$key] ?? null;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getAll(): array
     {
         return $this->parameters;

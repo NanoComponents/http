@@ -7,6 +7,9 @@ use NanoLibs\Http\Interfaces\ParamHandler\ServerHandlerInterface;
 use NanoLibs\Http\Interfaces\ParamInterface;
 use NanoLibs\Http\Traits\ParamGetterTrait;
 
+/**
+ * @extends BaseParameter<ServerHandlerInterface>
+ */
 class ServerParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;

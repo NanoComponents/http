@@ -7,7 +7,7 @@ use NanoLibs\Http\Interfaces\Service\UploadedFormInterface;
 
 class UploadedForm implements UploadedFormInterface
 {
-    /** @var array<string, UploadedFileInterface> $uploadedFilesInterface */
+    /** @var array<int, UploadedFileInterface> $uploadedFilesInterface */
     protected array  $uploadedFilesInterface;
 
     public function __construct(
@@ -23,20 +23,21 @@ class UploadedForm implements UploadedFormInterface
     public function addUploadedFile(UploadedFileInterface $uploadedFile): self
     {
         $fullFieldNameWithSuffix = $this->createFullFieldName($uploadedFile);
-        //$this->uploadedFilesInterface[$fullFieldNameWithSuffix][] = $uploadedFile;
         $this->uploadedFilesInterface[] = $uploadedFile;
         return $this;
     }
 
     /**
-     *     <suffixFieldName, UploadedFileInterface>
-     * @return array<string, UploadedFileInterface>
+     * @return array<int, UploadedFileInterface>
      */
     public function getFiles(): array
     {
         return $this->uploadedFilesInterface;
     }
 
+    /**
+     * @return array<int|string, mixed>
+     */
     public function getFieldNames(): array 
     {
         return array_keys($this->uploadedFilesInterface);

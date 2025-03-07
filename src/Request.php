@@ -62,9 +62,9 @@ readonly class Request
         return $this->fileParam->getHandler($fileName);
     }
 
-    public function getSession(?string $fileName = null): SessionHandlerInterface
+    public function getSession(): SessionHandlerInterface
     {
-        return $this->sessionParam->getHandler($fileName);
+        return $this->sessionParam->getHandler();
     }
 
     public function getStreamInput(): StreamInputService

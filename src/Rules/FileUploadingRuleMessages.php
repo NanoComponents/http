@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @var array<string|int, string>
+ */
 return [
     'max_size_error'      =>      'The uploaded file was above max allowed size',
     'min_size_error'      =>      'The uploaded file was under min allowed size',

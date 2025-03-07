@@ -1,0 +1,9 @@
+parameters:
+    level: max # Set to a number between 0-9, or "max" for the strictest checks
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - vendor
+    checkExplicitMixed: true
+    reportUnmatchedIgnoredErrors: false

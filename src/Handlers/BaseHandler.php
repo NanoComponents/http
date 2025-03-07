@@ -12,12 +12,19 @@ abstract class BaseHandler implements ParamHandlerInterface
     ) {
     }
 
+    /** @return array<mixed>  */
+    public function getAll(): array
+    {
+        return $this->paramInterface->getAll();
+    }
+
     public function getValue(string $name): mixed
     {
         $value = $this->paramInterface->get($name);
         return $value ?? null;
     }
 
+    /** @return array<mixed>  */
     protected function getGlobalParamArray(): array
     {
         return $this->paramInterface->getAll();

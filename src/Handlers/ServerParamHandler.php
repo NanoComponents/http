@@ -2,58 +2,54 @@
 
 namespace NanoLibs\Http\Handlers;
 
+use NanoLibs\Http\Exceptions\InvalidServerValueException;
 use NanoLibs\Http\Interfaces\ParamHandler\ServerHandlerInterface;
 use NanoLibs\Http\Traits\ParamSanitizationTrait;
 
 class ServerParamHandler extends BaseHandler implements ServerHandlerInterface
 {
     use ParamSanitizationTrait;
-    public function getAll(): array
+
+    public function getUserAgent(): ?string
     {
-        return $this->paramInterface->getAll();
+        return $this->getEvaluateValue('HTTP_USER_AGENT');
     }
 
-    public function getUserAgent()           : ?string
+    public function getMethod(): ?string
     {
-        return $this->paramInterface->get('HTTP_USER_AGENT');
+        return $this->getEvaluateValue('REQUEST_METHOD') 
+        ? strtoupper($this->getEvaluateValue('REQUEST_METHOD')) 
+        : null;
     }
 
-    public function getMethod()              : ?string
+    public function getHost(): ?string
     {
-        if (!$this->paramInterface->get('REQUEST_METHOD')) {
-            return null;
-        }
-        return strtoupper($this->paramInterface->get('REQUEST_METHOD'));
+        return $this->getEvaluateValue('HTTP_HOST');
     }
 
-    public function getHost()                : ?string
+    public function getClientIp(): ?string
     {
-        return $this->paramInterface->get('HTTP_HOST');
+        return $this->getEvaluateValue('REMOTE_ADDR');
     }
 
-    public function getClientIp()            : ?string
+    public function getRequestUri(): ?string
     {
-        return $this->paramInterface->get('REMOTE_ADDR');
+        return $this->getEvaluateValue('REQUEST_URI');
     }
 
-    public function getRequestUri()          : ?string
+    public function getQueryString(): ?string
     {
-        return $this->paramInterface->get('REQUEST_URI');
+        return $this->getEvaluateValue('QUERY_STRING');
     }
 
-    public function getQueryString()         : ?string
+    public function getScriptName(): ?string
     {
-        return $this->paramInterface->get('QUERY_STRING');
+        return $this->getEvaluateValue('SCRIPT_NAME');
     }
 
-    public function getScriptName()          : ?string
+    public function getProtocol(): ?string
     {
-        return $this->paramInterface->get('SCRIPT_NAME');
-    }
-
-    public function getProtocol()            : ?string
-    {
-        return $this->paramInterface->get('SERVER_PROTOCOL');
+        return $this->getEvaluateValue('SERVER_PROTOCOL');
     }
 
     public function isSecure(): bool
@@ -63,55 +59,76 @@ class ServerParamHandler extends BaseHandler implements ServerHandlerInterface
         if (in_array($https, ['on', '1'], true)) {
             return true;
         }
-    
+
         // Fallback to port check
         return $this->getPort() === 443;
     }
 
-    public function getReferer()             : ?string
+    public function getReferer(): ?string
     {
-        return $this->paramInterface->get('HTTP_REFERER');
+        return $this->getEvaluateValue('HTTP_REFERER');
     }
 
-    public function getAcceptLanguage()      : ?string
+    public function getAcceptLanguage(): ?string
     {
-        return $this->paramInterface->get('HTTP_ACCEPT_LANGUAGE');
+        return $this->getEvaluateValue('HTTP_ACCEPT_LANGUAGE');
     }
 
-    public function getAuthorizationHeader() : ?string
+    public function getAuthorizationHeader(): ?string
     {
-        return $this->paramInterface->get('HTTP_AUTHORIZATION');
-    }
-    
-    public function getServerName()          : ?string
-    {
-        return $this->paramInterface->get('SERVER_NAME');
+        return $this->getEvaluateValue('HTTP_AUTHORIZATION');
     }
 
-    public function getPort()                : null|int|string
+    public function getServerName(): ?string
+    {
+        return $this->getEvaluateValue('SERVER_NAME');
+    }
+
+    public function getPort(): null|int|string
     {
         return is_numeric($this->paramInterface->get('SERVER_PORT'))
         ? (int)$this->paramInterface->get('SERVER_PORT')
         : null;
     }
 
-    public function getContentType()         : ?string
+    public function getContentType(): ?string
     {
-        return $this->paramInterface->get('CONTENT_TYPE');
-    }
-    
-    public function getAccept()              : ?string
-    {
-        return $this->paramInterface->get('HTTP_ACCEPT');
+        return $this->getEvaluateValue('CONTENT_TYPE');
     }
 
-    public function getForwardedFor()        : ?string
+    public function getAccept(): ?string
     {
-        return $this->paramInterface->get('HTTP_X_FORWARDED_FOR');
+        return $this->getEvaluateValue('HTTP_ACCEPT');
     }
 
-    public function isXmlHttpRequest()       : ?bool
+    public function getForwardedFor(): ?string
+    {
+        return $this->getEvaluateValue('HTTP_X_FORWARDED_FOR');
+    }
+
+    public function isXmlHttpRequest(): ?bool
     {
         return $this->paramInterface->get('HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest';
+    }
+
+    /**
+     * Summary of typeEvaluate
+     * @param mixed $value
+     * @throws \NanoLibs\Http\Exceptions\InvalidServerValueException
+     * @return void
+     */
+    protected function typeEvaluate($value): void
+    {
+        if ($value !== null && !is_string($value)) {
+            throw new InvalidServerValueException("Expected string|null, got " . gettype($value));
+        }
+    }
+
+    protected function getEvaluateValue(string $key): ?string
+    {
+        /** @var string|null $value */
+        $value = $this->paramInterface->get($key);
+        $this->typeEvaluate($value);
+        return $value;
     }
 }

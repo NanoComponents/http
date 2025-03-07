@@ -2,6 +2,7 @@
 
 namespace NanoLibs\Http\Handlers;
 
+use NanoLibs\Http\Exceptions\InvalidFileArrayException;
 use NanoLibs\Http\Interfaces\ParamHandler\FileHandlerInterface;
 use NanoLibs\Http\Interfaces\ParamInterface;
 use NanoLibs\Http\Interfaces\Service\UploadedFileInterface;
@@ -10,7 +11,7 @@ use NanoLibs\Http\Services\Files\UploadRegistry;
 
 class FileParamHandler extends BaseHandler implements FileHandlerInterface
 {
-    protected ?UploadRegistry $uploadedRegistry;
+    protected UploadRegistry $uploadedRegistry;
 
     public function __construct(
         protected readonly ParamInterface $paramInterface,
@@ -20,7 +21,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
     }
 
     /**
-     * @return array<UploadedFile>
+     * @return array<int, UploadedFileInterface>
      */
     public function getAll(): array
     {
@@ -43,6 +44,9 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
         return false;
     }
 
+    /**
+     * @return array<string>
+     */
     public function getName()    : array
     {
         $result = [];
@@ -52,6 +56,10 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
         return $result;
     }
 
+    /**
+     * Summary of getFullPath
+     * @return array<string>
+     */
     public function getFullPath(): array
     {
         $result = [];
@@ -61,6 +69,10 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
         return $result;
     }
 
+    /**
+     * Summary of getType
+     * @return array<string>
+     */
     public function getType()    : array
     {
         $result = [];
@@ -70,6 +82,10 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
         return $result;
     }
 
+    /**
+     * Summary of getTempName
+     * @return array<string>
+     */
     public function getTempName(): array
     {
         $result = [];
@@ -79,6 +95,10 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
         return $result;
     }
 
+    /**
+     * Summary of getError
+     * @return array<int|string>
+     */
     public function getError()   : array
     {
         $result = [];
@@ -88,6 +108,10 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
         return $result;
     }
 
+    /**
+     * Summary of getSize
+     * @return array<int, int>
+     */
     public function getSize()    : array
     {
         $result = [];
@@ -97,6 +121,10 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
         return $result;
     }
 
+    /**
+     * Summary of getErrorMessages
+     * @return array<int, string>
+     */
     public function getErrorMessages()    : array
     {
         $result = [];
@@ -117,29 +145,33 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
     /**
      * Get UploadedFileInterface of specified form and specified file name
      * @param string $fileName
-     * @return array<UploadedFile>|null
+     * @return array<UploadedFileInterface>|null
      */
-    public function get(string $fileName): ?UploadedFileInterface
+    public function get(string $fileName): ?array
     {
+        $result = [];
         foreach ($this->getFilesArrayOfSpecifiedFormNameOrAll() as $file) {
             if ($fileName === $file->getFileName()) {
                 $result[] = $file;
             }
         }
-        return isset($result) ?: null;
+        return $result ?: null;
     }
 
 
+    /**
+     * @throws InvalidFileArrayException
+     */
     protected function registerUploadRegistry(): void
     {
         $this->uploadedRegistry = new UploadRegistry($this->paramInterface->getAll());
     }
 
     /**
-     * @return array<UploadedFile>
+     * @return array<UploadedFileInterface>
      */
     protected function getFilesArrayOfSpecifiedFormNameOrAll(): array
     {
-        return $this->uploadedRegistry->getUploadedFile($this->specifiedFormName);
+        return $this->uploadedRegistry->getUploadedFile(fieldName: $this->specifiedFormName);
     }
 }

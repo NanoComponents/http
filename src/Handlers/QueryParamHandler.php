@@ -8,9 +8,5 @@ use NanoLibs\Http\Traits\ParamSanitizationTrait;
 class QueryParamHandler extends BaseHandler implements QueryHandlerInterface
 {
     use ParamSanitizationTrait;
-    public function getAll(): array
-    {
-        return $this->paramInterface->getAll();
-    }
 
 }
