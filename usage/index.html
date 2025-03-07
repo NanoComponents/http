@@ -180,12 +180,13 @@
 <h2 id="server-data">Server Data<a class="headerlink" href="#server-data" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="x">$_SERVER = [&#39;REQUEST_METHOD&#39; =&gt; &#39;POST&#39;, &#39;HTTPS&#39; =&gt; &#39;on&#39;];</span>
 <span class="x">$request = RequestFactory::create();</span>
-<span class="x">echo $request-&gt;getServer()-&gt;get(&#39;REQUEST_METHOD&#39;); // &quot;POST&quot;</span>
+<span class="x">echo $request-&gt;getServer()-&gt;getMethod(); // &quot;POST&quot;</span>
 </code></pre></div>
 <h2 id="stream-input">Stream Input<a class="headerlink" href="#stream-input" title="Permanent link">&para;</a></h2>
 <p>Process raw request bodies (e.g., JSON):
-<div class="highlight"><pre><span></span><code><span class="x">$service = $request-&gt;getStreamInput();</span>
-<span class="x">$service-&gt;toArray(); // e.g., [&#39;name&#39; =&gt; &#39;John&#39;] from &#39;{&quot;name&quot;: &quot;John&quot;}&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="x">$request = RequestFactory::create();</span>
+<span class="x">$stream = $request-&gt;getStreamInput();</span>
+<span class="x">$stream-&gt;toArray(); // e.g., [&#39;name&#39; =&gt; &#39;John&#39;] from &#39;{&quot;name&quot;: &quot;John&quot;}&#39;</span>
 </code></pre></div></p>
               
             </div>
