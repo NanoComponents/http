@@ -15,21 +15,23 @@ class UploadedForm implements UploadedFormInterface
     ) {
     }
 
+    #[\Override]
     public function getFormName(): string
     {
         return $this->formName;
     }
 
-    public function addUploadedFile(UploadedFileInterface $uploadedFile): self
+    #[\Override]
+    public function addUploadedFile(UploadedFileInterface $uploadedFileInterface): self
     {
-        $fullFieldNameWithSuffix = $this->createFullFieldName($uploadedFile);
-        $this->uploadedFilesInterface[] = $uploadedFile;
+        $this->uploadedFilesInterface[] = $uploadedFileInterface;
         return $this;
     }
 
     /**
      * @return array<int, UploadedFileInterface>
      */
+    #[\Override]
     public function getFiles(): array
     {
         return $this->uploadedFilesInterface;
@@ -38,16 +40,9 @@ class UploadedForm implements UploadedFormInterface
     /**
      * @return array<int|string, mixed>
      */
+    #[\Override]
     public function getFieldNames(): array 
     {
         return array_keys($this->uploadedFilesInterface);
     }
-
-    protected function createFullFieldName(UploadedFileInterface $uploadedFile): string
-    {
-        return $uploadedFile->getFieldNameSuffix() 
-        ? $this->formName . '.' . $uploadedFile->getFieldNameSuffix()
-        : $this->formName;
-    }
-
 }

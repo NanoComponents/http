@@ -14,6 +14,7 @@ class FileParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;
 
+    #[\Override]
     public function getHandler(?string $fileName = null): FileHandlerInterface
     {
         return $this->handler ??= new FileParamHandler($this);

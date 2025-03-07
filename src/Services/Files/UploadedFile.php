@@ -20,31 +20,37 @@ class UploadedFile implements UploadedFileInterface
     ) {
     }
 
+    #[\Override]
     public function getFileName(): string
     {
         return $this->fileName;
     }
 
+    #[\Override]
     public function getFileFullPath(): string
     {
         return $this->fullPath;
     }
 
+    #[\Override]
     public function getFileType(): string
     {
         return $this->fileType;
     }
 
+    #[\Override]
     public function getFileTempName(): string
     {
         return $this->tempName;
     }
 
+    #[\Override]
     public function getFileError(): string|int
     {
         return $this->error;
     }
 
+    #[\Override]
     public function getFileSize(): int
     {
         return (int)$this->size;
@@ -54,16 +60,19 @@ class UploadedFile implements UploadedFileInterface
      * @throws UnknownErrorStatus
      * @throws InvalidUploadMessagesPathException
      */
+    #[\Override]
     public function getFileErrorMessages(): array
     {
         return FileUploadingRules::checkAllFileError($this);
     }
 
+    #[\Override]
     public function setFieldNameSuffix(string $suffix): void
     {
         $this->fieldNameSuffix = $suffix;
     }
 
+    #[\Override]
     public function getFieldNameSuffix(): string
     {
         return $this->fieldNameSuffix;

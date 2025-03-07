@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class RequestCookieHandlerTest extends TestCase
 {
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();

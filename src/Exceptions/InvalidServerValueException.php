@@ -2,4 +2,4 @@
 
 namespace NanoLibs\Http\Exceptions;
 
-class InvalidServerValueException extends \Exception {}
+final class InvalidServerValueException extends \Exception {}

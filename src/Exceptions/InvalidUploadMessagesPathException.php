@@ -2,4 +2,4 @@
 
 namespace NanoLibs\Http\Exceptions;
 
-class InvalidUploadMessagesPathException extends \Exception {}
+final class InvalidUploadMessagesPathException extends \Exception {}

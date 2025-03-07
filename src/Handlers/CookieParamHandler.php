@@ -9,6 +9,7 @@ class CookieParamHandler extends BaseHandler implements CookieHandlerInterface
 {
     use ParamSanitizationTrait;
 
+    #[\Override]
     public function isCookieExists(string $fileName): bool
     {
         return $this->paramInterface->get($fileName) !== null;

@@ -23,21 +23,23 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
     /**
      * @return array<int, UploadedFileInterface>
      */
+    #[\Override]
     public function getAll(): array
     {
         return $this->uploadedRegistry->getUploadedFile();
     }
 
+    #[\Override]
     public function isFileExists(string $fileName): bool
     {
         return in_array($fileName, $this->getName(), true);
     }
 
+    #[\Override]
     public function isFieldNameExists(string $fieldName): bool
     {
         foreach ($this->getFilesArrayOfSpecifiedFormNameOrAll() as $file) {
             if ($fieldName === $file->getFieldNameSuffix()) {
-                print_r($file->getFieldNameSuffix());
                 return true;
             }
         }
@@ -47,6 +49,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
     /**
      * @return array<string>
      */
+    #[\Override]
     public function getName()    : array
     {
         $result = [];
@@ -60,6 +63,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
      * Summary of getFullPath
      * @return array<string>
      */
+    #[\Override]
     public function getFullPath(): array
     {
         $result = [];
@@ -73,6 +77,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
      * Summary of getType
      * @return array<string>
      */
+    #[\Override]
     public function getType()    : array
     {
         $result = [];
@@ -86,6 +91,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
      * Summary of getTempName
      * @return array<string>
      */
+    #[\Override]
     public function getTempName(): array
     {
         $result = [];
@@ -99,6 +105,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
      * Summary of getError
      * @return array<int|string>
      */
+    #[\Override]
     public function getError()   : array
     {
         $result = [];
@@ -112,6 +119,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
      * Summary of getSize
      * @return array<int, int>
      */
+    #[\Override]
     public function getSize()    : array
     {
         $result = [];
@@ -125,6 +133,7 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
      * Summary of getErrorMessages
      * @return array<int, string>
      */
+    #[\Override]
     public function getErrorMessages()    : array
     {
         $result = [];
@@ -137,16 +146,12 @@ class FileParamHandler extends BaseHandler implements FileHandlerInterface
         return $result;
     }
 
-    public function __destruct()
-    {
-        unset($this->uploadedRegistry);
-    }
-
     /**
      * Get UploadedFileInterface of specified form and specified file name
      * @param string $fileName
      * @return array<UploadedFileInterface>|null
      */
+    #[\Override]
     public function get(string $fileName): ?array
     {
         $result = [];

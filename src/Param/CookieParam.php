@@ -14,6 +14,7 @@ class CookieParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;
 
+    #[\Override]
     public function getHandler(): CookieHandlerInterface
     {
         return $this->handler ??=  new CookieParamHandler($this);

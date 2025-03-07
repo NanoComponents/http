@@ -14,7 +14,7 @@ class ServerParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;
 
-
+    #[\Override]
     public function getHandler(): ServerHandlerInterface
     {
         return $this->handler ??= new ServerParamHandler($this);

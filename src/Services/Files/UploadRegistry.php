@@ -42,7 +42,6 @@ class UploadRegistry
                 $this->handleNestedFileUploaded($value, $fieldSuffix, $form);
             }
         }
-        $serializedArray = null;
     }
 
     /**
@@ -93,17 +92,6 @@ class UploadRegistry
         return false;
     }
 
-    /**
-     * @param array<string, int|string> $fileData
-     * @return bool
-     */
-    protected function fileDataStringifyValidator(array $fileData): bool
-    {
-        return is_string($fileData['name'])
-            && is_string($fileData['tmp_name'])
-            && is_string($fileData['full_path'])
-            && is_string($fileData['type']);
-    }
     /**
      * @param string|int $fieldSuffix
      * @param array<string, string> $value

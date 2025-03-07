@@ -9,12 +9,14 @@ class StreamInputServiceTest extends TestCase
 {
     private const TEST_FILE = __DIR__ . '/test_input.txt';
 
+    #[\Override]
     protected function setUp(): void
     {
         // Ensure a test file exists
         file_put_contents(self::TEST_FILE, '');
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         // Cleanup test file

@@ -2,4 +2,4 @@
 
 namespace NanoLibs\Http\Exceptions;
 
-class InvalidFileArrayException extends \Exception {}
+final class InvalidFileArrayException extends \Exception {}

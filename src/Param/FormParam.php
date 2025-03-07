@@ -14,6 +14,7 @@ class FormParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;
 
+    #[\Override]
     public function getHandler(): FormHandlerInterface
     {
         return $this->handler ??= new FormParamHandler($this);

@@ -10,11 +10,13 @@ class ServerParamHandler extends BaseHandler implements ServerHandlerInterface
 {
     use ParamSanitizationTrait;
 
+    #[\Override]
     public function getUserAgent(): ?string
     {
         return $this->getEvaluateValue('HTTP_USER_AGENT');
     }
 
+    #[\Override]
     public function getMethod(): ?string
     {
         return $this->getEvaluateValue('REQUEST_METHOD') 
@@ -22,36 +24,43 @@ class ServerParamHandler extends BaseHandler implements ServerHandlerInterface
         : null;
     }
 
+    #[\Override]
     public function getHost(): ?string
     {
         return $this->getEvaluateValue('HTTP_HOST');
     }
 
+    #[\Override]
     public function getClientIp(): ?string
     {
         return $this->getEvaluateValue('REMOTE_ADDR');
     }
 
+    #[\Override]
     public function getRequestUri(): ?string
     {
         return $this->getEvaluateValue('REQUEST_URI');
     }
 
+    #[\Override]
     public function getQueryString(): ?string
     {
         return $this->getEvaluateValue('QUERY_STRING');
     }
 
+    #[\Override]
     public function getScriptName(): ?string
     {
         return $this->getEvaluateValue('SCRIPT_NAME');
     }
 
+    #[\Override]
     public function getProtocol(): ?string
     {
         return $this->getEvaluateValue('SERVER_PROTOCOL');
     }
 
+    #[\Override]
     public function isSecure(): bool
     {
         // Check HTTPS header first
@@ -64,26 +73,31 @@ class ServerParamHandler extends BaseHandler implements ServerHandlerInterface
         return $this->getPort() === 443;
     }
 
+    #[\Override]
     public function getReferer(): ?string
     {
         return $this->getEvaluateValue('HTTP_REFERER');
     }
 
+    #[\Override]
     public function getAcceptLanguage(): ?string
     {
         return $this->getEvaluateValue('HTTP_ACCEPT_LANGUAGE');
     }
 
+    #[\Override]
     public function getAuthorizationHeader(): ?string
     {
         return $this->getEvaluateValue('HTTP_AUTHORIZATION');
     }
 
+    #[\Override]
     public function getServerName(): ?string
     {
         return $this->getEvaluateValue('SERVER_NAME');
     }
 
+    #[\Override]
     public function getPort(): null|int|string
     {
         return is_numeric($this->paramInterface->get('SERVER_PORT'))
@@ -91,21 +105,25 @@ class ServerParamHandler extends BaseHandler implements ServerHandlerInterface
         : null;
     }
 
+    #[\Override]
     public function getContentType(): ?string
     {
         return $this->getEvaluateValue('CONTENT_TYPE');
     }
 
+    #[\Override]
     public function getAccept(): ?string
     {
         return $this->getEvaluateValue('HTTP_ACCEPT');
     }
 
+    #[\Override]
     public function getForwardedFor(): ?string
     {
         return $this->getEvaluateValue('HTTP_X_FORWARDED_FOR');
     }
 
+    #[\Override]
     public function isXmlHttpRequest(): ?bool
     {
         return $this->paramInterface->get('HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest';

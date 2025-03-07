@@ -7,10 +7,10 @@ use PHPUnit\Framework\TestCase;
 
 class RequestSessionHandlerTest extends TestCase
 {
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
-        $_SESSION = [];
     }
 
     public function testValidSessionParams()

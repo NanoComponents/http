@@ -12,6 +12,7 @@ class StreamInputService implements StreamInputInterface
         private readonly string $path,
     ) {}
 
+    #[\Override]
     public function getRawBody(): string
     {
         if ($this->rawBody === null) {
@@ -26,6 +27,7 @@ class StreamInputService implements StreamInputInterface
      * @return string
      * @throws JsonException
      */
+    #[\Override]
     public function toJson(int $options = 0): string
     {
         return json_encode($this->toArray(), JSON_THROW_ON_ERROR | $options);
@@ -34,6 +36,7 @@ class StreamInputService implements StreamInputInterface
     /**
      * @throws JsonException
      */
+    #[\Override]
     public function toArray(): array
     {
         $body = $this->getRawBody();

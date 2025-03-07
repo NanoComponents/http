@@ -14,7 +14,7 @@ class SessionParam extends BaseParameter implements ParamInterface
 {
     use ParamGetterTrait;
 
-
+    #[\Override]
     public function getHandler(): SessionHandlerInterface
     {
         return $this->handler ??= new SessionParamHandler($this);

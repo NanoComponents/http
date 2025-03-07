@@ -17,11 +17,13 @@ class QueryParam extends BaseParameter implements ParamInterface
     /**
      * @return array<array<mixed>|mixed>
      */
+    #[\Override]
     public function getAll(): array
     {
         return $this->parameters;
     }
 
+    #[\Override]
     public function getHandler(): QueryHandlerInterface
     {
     return $this->handler ??= new QueryParamHandler($this);
